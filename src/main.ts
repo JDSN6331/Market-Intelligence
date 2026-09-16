@@ -721,6 +721,14 @@ function renderPricesTable(): void {
       ? `<span class="badge-trend positive" title="Concorrente mais caro">+${diff.toFixed(1)}%</span>`
       : `<span class="badge-trend neutral">0.0%</span>`;
 
+    const tagLabel = diff < 0 
+      ? 'Concorrente mais barato' 
+      : diff > 0 
+      ? 'Concorrente mais caro' 
+      : 'Preço alinhado';
+
+    const tagClass = diff < 0 ? 'cheaper' : diff > 0 ? 'expensive' : 'neutral';
+
     return `
       <tr>
         <td><strong>${prod.name}</strong><br><small class="text-muted">${prod.brandPartner}</small></td>
@@ -735,10 +743,14 @@ function renderPricesTable(): void {
           <div>${prod.dataSource.sourceName}</div>
           <span class="kpi-audit-badge">${prod.dataSource.auditLevel} &bull; ${prod.dataSource.collectionDate}</span>
         </td>
-        <td>
-          <div style="display: flex; align-items: center; gap: 6px;">
+        <!-- COLUNA COMPLETA SEM RETICÊNCIAS COM POSICIONAMENTO E ANÁLISE -->
+        <td class="table-verdict-cell">
+          <div class="verdict-diff-row">
             ${diffBadge}
-            <span style="font-size: 0.78rem;">${prod.comparisonVsCooxupe.strategicVerdict.substring(0, 65)}...</span>
+            <span class="verdict-tag ${tagClass}">${tagLabel}</span>
+          </div>
+          <div class="table-verdict-text">
+            ${prod.comparisonVsCooxupe.strategicVerdict}
           </div>
         </td>
       </tr>
@@ -1165,7 +1177,7 @@ function exportPricesToCsv(): void {
     'Metodo de Extracao no Mercado',
     'Data da Coleta',
     'Nivel de Auditoria',
-    'Benchmark Estrategico Cooxupe'
+    'Posicionamento de Preco & Analise vs Cooxupe'
   ];
 
   const rows = PRODUCTS_CATALOG.map(p => {

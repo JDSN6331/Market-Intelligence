@@ -2380,6 +2380,59 @@ body.dark-mode .data-table th {
   display: block;
 }
 
+.table-verdict-cell {
+  min-width: 280px;
+  max-width: 440px;
+  line-height: 1.4;
+  vertical-align: top;
+}
+
+.verdict-diff-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.verdict-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.verdict-tag.cheaper {
+  color: #d97706; /* Concorrente mais barato / agressivo */
+}
+
+body.dark-mode .verdict-tag.cheaper {
+  color: #fbbf24;
+}
+
+.verdict-tag.expensive {
+  color: #15803d; /* Concorrente mais caro / Vantagem Cooxupé */
+}
+
+body.dark-mode .verdict-tag.expensive {
+  color: #4ade80;
+}
+
+.verdict-tag.neutral {
+  color: var(--text-muted);
+}
+
+.table-verdict-text {
+  font-size: 0.79rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  word-break: normal;
+}
+
+body.dark-mode .table-verdict-text {
+  color: #cbd5e1;
+}
+
 /* ==========================================================================
    ABA 4: CAMPANHAS PROMOCIONAIS
    ========================================================================== */
