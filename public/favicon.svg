@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="gradBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E5E3A" />
+      <stop offset="100%" stop-color="#0D2619" />
+    </linearGradient>
+    <linearGradient id="gradLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6BE0A6" />
+      <stop offset="100%" stop-color="#2B7A4E" />
+    </linearGradient>
+    <linearGradient id="gradGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D99B26" />
+    </linearGradient>
+  </defs>
+  <!-- Fundo Arredondado com Borda Dourada Executiva -->
+  <rect width="64" height="64" rx="16" fill="url(#gradBg)" stroke="#D99B26" stroke-width="2.5" />
+  
+  <!-- Folha de Café Arábica -->
+  <path d="M32 12 C44 14 50 26 48 38 C44 38 34 36 28 26 C28 20 30 15 32 12 Z" fill="url(#gradLeaf)" />
+  <path d="M32 12 C20 14 14 26 16 38 C20 38 30 36 36 26 C36 20 34 15 32 12 Z" fill="#52B788" opacity="0.9" />
+  
+  <!-- Nervura Central -->
+  <path d="M32 14 L32 42" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.7" />
+  
+  <!-- Grão de Café / Fruto Ouro da Colheita -->
+  <ellipse cx="32" cy="46" rx="9" ry="6" fill="url(#gradGold)" transform="rotate(-15 32 46)" />
+  <path d="M26 47 C29 44 35 48 38 45" stroke="#4D2C1D" stroke-width="2" stroke-linecap="round" />
+</svg>

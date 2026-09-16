@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Inteligência Competitiva | Cooxupé</title>
+  <meta name="description" content="Cockpit Executivo de Inteligência Competitiva da Cooxupé: Insumos, Irrigação, Maquinário Agrícola, Radar de Preços, Simulador de Barter e Monitor de Feiras.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  
+  <!-- Fontes Tipográficas Modernas (Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Biblioteca Oficial de Ícones do Flaticon (UIcons) -->
+  <!-- https://www.flaticon.com/br/ -->
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css">
+  
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div id="app" class="app-container">
+    <!-- BARRA SUPERIOR DE INFORMAÇÕES DE MERCADO (TICKER) -->
+    <!-- BARRA SUPERIOR DINÂMICA DE MERCADO (TICKER CONTÍNUO AO VIVO) -->
+    <header class="top-ticker-bar">
+      <div class="ticker-live-badge">
+        <span class="live-indicator-dot"></span>
+        <span>MERCADO AO VIVO</span>
+      </div>
+
+      <div class="ticker-track-viewport">
+        <div class="ticker-track">
+          <!-- Bloco 1 de Cotações -->
+          <div class="ticker-group">
+            <div class="ticker-item">
+              <i class="fi fi-rr-coffee"></i>
+              <span class="ticker-label">Café Arábica Tipo 6 (Base Barter Cooxupé):</span>
+              <strong class="ticker-val ticker-coffee-val">R$ 1.820,00 / sc</strong>
+              <span class="badge-trend positive">+1.4% <i class="fi fi-rr-arrow-trend-up"></i></span>
+            </div>
+            <div class="ticker-separator"></div>
+            <div class="ticker-item">
+              <i class="fi fi-rr-badge-dollar"></i>
+              <span class="ticker-label">Dólar Comercial:</span>
+              <strong class="ticker-val ticker-dollar-val">R$ 5,42</strong>
+              <span class="badge-trend neutral ticker-dollar-trend">Ao Vivo</span>
+            </div>
+            <div class="ticker-separator"></div>
+            <div class="ticker-item">
+              <i class="fi fi-rr-plant-growth"></i>
+              <span class="ticker-label">Índice Médio Insumos (NPK):</span>
+              <strong class="ticker-val">R$ 2.890 / t</strong>
+              <span class="badge-trend negative">-0.8%</span>
+            </div>
+            <div class="ticker-separator"></div>
+            <div class="ticker-item highlight">
+              <i class="fi fi-rr-shield-check"></i>
+              <span class="ticker-label">Vantagem Média Cooxupé (Sobras + Barter):</span>
+              <strong class="ticker-val text-gold">+3.8% de Retorno</strong>
+            </div>
+            <div class="ticker-separator"></div>
+            <div class="ticker-item">
+              <i class="fi fi-rr-leaf"></i>
+              <span class="ticker-label">Ureia Granulada Importada:</span>
+              <strong class="ticker-val">R$ 2.650 / t</strong>
+              <span class="badge-trend positive">Estável</span>
+            </div>
+            <div class="ticker-separator"></div>
+          </div>
+
+          <!-- Bloco 2 de Cotações (Loop Contínuo Infinito) -->
+          <div class="ticker-group" aria-hidden="true">
+            <div class="ticker-item">
+              <i class="fi fi-rr-coffee"></i>
+              <span class="ticker-label">Café Arábica Tipo 6 (Base Barter Cooxupé):</span>
+              <strong class="ticker-val ticker-coffee-val">R$ 1.820,00 / sc</strong>
+              <span class="badge-trend positive">+1.4% <i class="fi fi-rr-arrow-trend-up"></i></span>
+            </div>
+            <div class="ticker-separator"></div>
+            <div class="ticker-item">
+              <i class="fi fi-rr-badge-dollar"></i>
+              <span class="ticker-label">Dólar Comercial:</span>
+              <strong class="ticker-val ticker-dollar-val">R$ 5,42</strong>
+              <span class="badge-trend neutral ticker-dollar-trend">Ao Vivo</span>
+            </div>
+            <div class="ticker-separator"></div>
+            <div class="ticker-item">
+              <i class="fi fi-rr-plant-growth"></i>
+              <span class="ticker-label">Índice Médio Insumos (NPK):</span>
+              <strong class="ticker-val">R$ 2.890 / t</strong>
+              <span class="badge-trend negative">-0.8%</span>
+            </div>
+            <div class="ticker-separator"></div>
+            <div class="ticker-item highlight">
+              <i class="fi fi-rr-shield-check"></i>
+              <span class="ticker-label">Vantagem Média Cooxupé (Sobras + Barter):</span>
+              <strong class="ticker-val text-gold">+3.8% de Retorno</strong>
+            </div>
+            <div class="ticker-separator"></div>
+            <div class="ticker-item">
+              <i class="fi fi-rr-leaf"></i>
+              <span class="ticker-label">Ureia Granulada Importada:</span>
+              <strong class="ticker-val">R$ 2.650 / t</strong>
+              <span class="badge-trend positive">Estável</span>
+            </div>
+            <div class="ticker-separator"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticker-actions">
+        <button id="btn-open-sync-modal" class="btn-icon-minimal" title="Atualizar Cotações do Café e Dólar">
+          <i class="fi fi-rr-refresh"></i>
+          <span class="btn-text">Atualizar Cotações</span>
+        </button>
+        <button id="btn-theme-toggle" class="btn-icon-minimal" title="Alternar Modo Claro / Noturno">
+          <i class="fi fi-rr-sun" id="theme-icon"></i>
+          <span class="btn-text">Tema</span>
+        </button>
+        <button id="btn-quick-export" class="btn-icon-minimal" title="Exportar Relatório Executivo">
+          <i class="fi fi-rr-download"></i>
+          <span class="btn-text">Exportar</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- CABEÇALHO PRINCIPAL DA APLICAÇÃO -->
+    <header class="main-header">
+      <div class="header-brand">
+        <div class="brand-logo-badge">
+          <i class="fi fi-rr-leaf logo-icon"></i>
+        </div>
+        <div class="brand-titles">
+          <div class="brand-tag">Inteligência Competitiva & Estratégia Comercial</div>
+          <h1 class="brand-title">COOXUPÉ <span>MARKET INTELLIGENCE</span></h1>
+          <p class="brand-subtitle">Monitoramento Estratégico de Insumos, Irrigação e Maquinário Agrícola no Sul de MG, Cerrado e Mogiana Paulista</p>
+        </div>
+      </div>
+
+      <!-- PAINEL RÁPIDO DE FILTROS GLOBAIS -->
+      <div class="header-quick-bar">
+        <div class="quick-stat-card">
+          <div class="stat-icon-wrapper insumos">
+            <i class="fi fi-rr-plant-growth"></i>
+          </div>
+          <div class="stat-data">
+            <span class="stat-lbl">Insumos (Fertilizantes/Defensivos)</span>
+            <div class="stat-num">42% <small>Market Share Cooxupé</small></div>
+            <div class="stat-sub text-green">Líder no Sul de MG</div>
+          </div>
+        </div>
+
+        <div class="quick-stat-card">
+          <div class="stat-icon-wrapper irrigacao">
+            <i class="fi fi-rr-bottle-droplet"></i>
+          </div>
+          <div class="stat-data">
+            <span class="stat-lbl">Irrigação & Automação Hídrica</span>
+            <div class="stat-num">28% <small>Market Share Cooxupé</small></div>
+            <div class="stat-sub text-amber">Pressão Coopercitrus/Netafim</div>
+          </div>
+        </div>
+
+        <div class="quick-stat-card">
+          <div class="stat-icon-wrapper maquinas">
+            <i class="fi fi-rr-gears"></i>
+          </div>
+          <div class="stat-data">
+            <span class="stat-lbl">Maquinário & Tratores Cafeeiros</span>
+            <div class="stat-num">35% <small>Market Share Cooxupé</small></div>
+            <div class="stat-sub text-green">Liderança Femagri / Agritech</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- NAVEGAÇÃO DE ABAS PRINCIPAIS (TOTALMENTE RESPONSIVA) -->
+    <nav class="main-nav-tabs">
+      <div class="nav-tabs-container">
+        <button class="nav-tab active" data-tab="cockpit" title="Cockpit Executivo & Alertas">
+          <i class="fi fi-rr-dashboard"></i>
+          <span class="tab-label-full">Cockpit & Alertas</span>
+          <span class="tab-label-short">Cockpit</span>
+          <span class="tab-badge" id="alerts-count-badge">4</span>
+        </button>
+        <button class="nav-tab" data-tab="produtos" title="Catálogo de Produtos & Comparador">
+          <i class="fi fi-rr-boxes"></i>
+          <span class="tab-label-full">Catálogo & Produtos</span>
+          <span class="tab-label-short">Produtos</span>
+        </button>
+        <button class="nav-tab" data-tab="barter" title="Radar de Preços & Simulador de Barter">
+          <i class="fi fi-rr-arrows-repeat"></i>
+          <span class="tab-label-full">Radar & Barter</span>
+          <span class="tab-label-short">Barter</span>
+        </button>
+        <button class="nav-tab" data-tab="campanhas" title="Campanhas & Ofertas Concorrentes">
+          <i class="fi fi-rr-badge-percent"></i>
+          <span class="tab-label-full">Campanhas & Condições</span>
+          <span class="tab-label-short">Campanhas</span>
+        </button>
+        <button class="nav-tab" data-tab="feiras" title="Feiras & Eventos do Setor">
+          <i class="fi fi-rr-calendar-check"></i>
+          <span class="tab-label-full">Feiras & Eventos</span>
+          <span class="tab-label-short">Feiras</span>
+        </button>
+        <button class="nav-tab" data-tab="swot" title="Diretrizes Táticas (Matriz SWOT)">
+          <i class="fi fi-rr-bulb"></i>
+          <span class="tab-label-full">Diretrizes Táticas (SWOT)</span>
+          <span class="tab-label-short">SWOT</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ÁREA DE CONTEÚDO DINÂMICO -->
+    <main class="content-wrapper">
+      
+      <!-- ================= ABA 1: COCKPIT EXECUTIVO & ALERTAS ================= -->
+      <section id="tab-cockpit" class="tab-pane active">
+        <!-- BARRA DE ALERTA CRÍTICO -->
+        <div class="critical-alert-banner">
+          <div class="alert-icon-pulse">
+            <i class="fi fi-rr-bell-ring"></i>
+          </div>
+          <div class="alert-text-group">
+            <div class="alert-badge-label">ALERTA ESTRATÉGICO PRIORITÁRIO</div>
+            <h3 class="alert-headline" id="top-alert-title">Carregando alerta...</h3>
+            <p class="alert-details" id="top-alert-desc">Monitoramento contínuo em andamento.</p>
+          </div>
+          <button id="btn-view-alert-action" class="btn-primary-small">
+            <i class="fi fi-rr-shield-check"></i> Diretriz Comercial
+          </button>
+        </div>
+
+        <!-- GRID DE CARDS EXECUTIVOS DE KPIS -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Índice de Competitividade de Preço (ICP)</span>
+              <i class="fi fi-rr-chart-line-up kpi-icon"></i>
+            </div>
+            <div class="kpi-value text-green">102.4%</div>
+            <div class="kpi-bar-bg">
+              <div class="kpi-bar-fill" style="width: 72%;"></div>
+            </div>
+            <div class="kpi-footer">
+              <span>Cooxupé 2.4% mais competitiva no pacote global vs Cocatrel e Revendas</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Relação de Troca Média (Barter NPK 20-00-20)</span>
+              <i class="fi fi-rr-arrows-repeat kpi-icon"></i>
+            </div>
+            <div class="kpi-value">1.62 <small>sc/ton</small></div>
+            <div class="kpi-bar-bg">
+              <div class="kpi-bar-fill" style="width: 58%; background: var(--color-coffee-amber);"></div>
+            </div>
+            <div class="kpi-footer">
+              <span>Mercado concorrente opera a <strong>1.69 sc/ton</strong> (+0.07 sc/t mais caro)</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Ameaça de Prazos Safra (CPR Privada)</span>
+              <i class="fi fi-rr-engine-warning kpi-icon text-amber"></i>
+            </div>
+            <div class="kpi-value text-amber">Moderada-Alta</div>
+            <div class="kpi-bar-bg">
+              <div class="kpi-bar-fill" style="width: 80%; background: var(--color-harvest-gold);"></div>
+            </div>
+            <div class="kpi-footer">
+              <span>Lavoro e revendas ofertando carência até maio/2027 com aprovação em 48h</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Retenção de Barter na Femagri</span>
+              <i class="fi fi-rr-badge-leaf kpi-icon"></i>
+            </div>
+            <div class="kpi-value text-green">89.6%</div>
+            <div class="kpi-bar-bg">
+              <div class="kpi-bar-fill" style="width: 90%;"></div>
+            </div>
+            <div class="kpi-footer">
+              <span>Cooperados que adquiriram tratores e implementos mantiveram entrega na safra</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEÇÃO: RADAR DE CONCORRENTES & FEED DE ALERTAS -->
+        <div class="dashboard-split-grid">
+          <!-- Coluna da Esquerda: Concorrentes Monitorados -->
+          <div class="panel-box">
+            <div class="panel-box-header">
+              <div class="header-with-icon">
+                <i class="fi fi-rr-network"></i>
+                <h2>Clusters Concorrentes Mapeados</h2>
+              </div>
+              <span class="badge-pill">8 Organizações Monitoradas</span>
+            </div>
+            <div class="competitors-list-compact" id="competitors-cockpit-list">
+              <!-- Renderizado via TypeScript -->
+            </div>
+          </div>
+
+          <!-- Coluna da Direita: Feed de Alertas Recentes -->
+          <div class="panel-box">
+            <div class="panel-box-header">
+              <div class="header-with-icon">
+                <i class="fi fi-rr-bell"></i>
+                <h2>Feed de Ocorrências Comerciais</h2>
+              </div>
+              <span class="badge-pill text-green">Atualização Constante</span>
+            </div>
+            <div class="alerts-feed-container" id="alerts-feed-list">
+              <!-- Renderizado via TypeScript -->
+            </div>
+          </div>
+        </div>
+
+        <!-- SEÇÃO: COMPARAÇÃO DE MARKET SHARE ESTIMADO POR MACRORREGIÃO -->
+        <div class="panel-box mt-4">
+          <div class="panel-box-header">
+            <div class="header-with-icon">
+              <i class="fi fi-rr-chart-histogram"></i>
+              <h2>Market Share Estimado por Segmento: Cooxupé vs Principais Concorrentes</h2>
+            </div>
+            <div class="legend-group">
+              <span class="legend-item"><span class="dot cooxupe"></span> Cooxupé</span>
+              <span class="legend-item"><span class="dot cocatrel"></span> Cocatrel</span>
+              <span class="legend-item"><span class="dot coopercitrus"></span> Coopercitrus</span>
+              <span class="legend-item"><span class="dot trabalho"></span> Lavoro/Privadas</span>
+              <span class="legend-item"><span class="dot outros"></span> Outros/Especialistas</span>
+            </div>
+          </div>
+          <div class="market-share-bars-container">
+            <!-- Barra Insumos -->
+            <div class="ms-row">
+              <div class="ms-label">
+                <i class="fi fi-rr-plant-growth"></i>
+                <strong>Insumos Agrícolas</strong> (Fertilizantes & Defensivos)
+              </div>
+              <div class="ms-multi-bar">
+                <div class="ms-segment cooxupe" style="width: 42%;" title="Cooxupé: 42%">42% Cooxupé</div>
+                <div class="ms-segment trabalho" style="width: 28%;" title="Lavoro & Revendas: 28%">28% Revendas</div>
+                <div class="ms-segment cocatrel" style="width: 16%;" title="Cocatrel: 16%">16% Cocatrel</div>
+                <div class="ms-segment outros" style="width: 14%;" title="Minasul e Outros: 14%">14% Outros</div>
+              </div>
+            </div>
+
+            <!-- Barra Irrigação -->
+            <div class="ms-row">
+              <div class="ms-label">
+                <i class="fi fi-rr-bottle-droplet"></i>
+                <strong>Sistemas de Irrigação</strong> (Gotejamento & Pivôs)
+              </div>
+              <div class="ms-multi-bar">
+                <div class="ms-segment outros" style="width: 34%;" title="Integradores Especializados: 34%">34% Integradores</div>
+                <div class="ms-segment cooxupe" style="width: 28%;" title="Cooxupé: 28%">28% Cooxupé</div>
+                <div class="ms-segment coopercitrus" style="width: 24%;" title="Coopercitrus: 24%">24% Coopercitrus</div>
+                <div class="ms-segment cocatrel" style="width: 14%;" title="Cocatrel e Outras: 14%">14% Outras</div>
+              </div>
+            </div>
+
+            <!-- Barra Maquinário -->
+            <div class="ms-row">
+              <div class="ms-label">
+                <i class="fi fi-rr-gears"></i>
+                <strong>Maquinário Agrícola</strong> (Tratores, Colhedoras & Pulverizadores)
+              </div>
+              <div class="ms-multi-bar">
+                <div class="ms-segment cooxupe" style="width: 35%;" title="Cooxupé: 35%">35% Cooxupé (Femagri)</div>
+                <div class="ms-segment outros" style="width: 27%;" title="Concessionárias Diretas: 27%">27% Concessionárias</div>
+                <div class="ms-segment coopercitrus" style="width: 22%;" title="Coopercitrus (Valtra): 22%">22% Coopercitrus</div>
+                <div class="ms-segment cocatrel" style="width: 16%;" title="Cocatrel: 16%">16% Cocatrel</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= ABA 2: CATÁLOGO DE PRODUTOS & COMPARADOR ================= -->
+      <section id="tab-produtos" class="tab-pane">
+        <!-- BARRA DE FILTROS AVANÇADOS -->
+        <div class="filter-toolbar">
+          <div class="search-box">
+            <i class="fi fi-rr-search"></i>
+            <input type="text" id="input-search-product" placeholder="Buscar produto, ingrediente ativo, marca parceira ou máquina...">
+          </div>
+
+          <div class="filter-selectors">
+            <div class="select-wrapper">
+              <i class="fi fi-rr-bars-filter"></i>
+              <select id="filter-category-select">
+                <option value="all">Todas as Linhas de Produtos</option>
+                <option value="insumos">Linha de Insumos (Fertilizantes & Defensivos)</option>
+                <option value="irrigacao">Linha de Irrigação (Gotejo & Pivôs)</option>
+                <option value="maquinario">Linha de Maquinário Agrícola</option>
+              </select>
+            </div>
+
+            <div class="select-wrapper">
+              <i class="fi fi-rr-building"></i>
+              <select id="filter-competitor-select">
+                <option value="all">Todos os Concorrentes</option>
+                <option value="cocatrel">Cocatrel</option>
+                <option value="coopercitrus">Coopercitrus</option>
+                <option value="minasul">Minasul</option>
+                <option value="expocacer">Expocacer</option>
+                <option value="lavoro_agro">Lavoro Agro / Revendas Privadas</option>
+                <option value="concessionarias_maquinas">Concessionárias Especializadas</option>
+                <option value="players_irrigacao">Integradores de Irrigação</option>
+                <option value="cooxupe">Cooxupé (Referência Própria)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="results-stats-badge" id="products-count-badge">
+            Exibindo 10 produtos
+          </div>
+        </div>
+
+        <!-- GRID DE CARDS DE PRODUTOS -->
+        <div class="products-grid" id="products-catalog-grid">
+          <!-- Renderizado via TypeScript -->
+        </div>
+      </section>
+
+      <!-- ================= ABA 3: RADAR DE PREÇOS & SIMULADOR DE BARTER ================= -->
+      <section id="tab-barter" class="tab-pane">
+        <!-- SIMULADOR INTERATIVO DE BARTER (RELAÇÃO DE TROCA EM CAFÉ) -->
+        <div class="barter-simulator-box">
+          <div class="simulator-header">
+            <div class="sim-title-group">
+              <div class="badge-agro">
+                <i class="fi fi-rr-arrows-repeat"></i> SIMULADOR INTELIGENTE DE TROCA
+              </div>
+              <h2>Relação de Troca: Café Arábica vs Insumos e Máquinas</h2>
+              <p>Simule a quantidade de sacas de 60 kg necessárias para aquisição de insumos, sistemas de irrigação e maquinário na Cooxupé versus concorrentes de mercado.</p>
+            </div>
+
+            <div class="sim-controls-group">
+              <div class="coffee-price-slider-box">
+                <label for="coffee-price-input">
+                  Cotação da Saca de Café (Base Líquida Produtor):
+                </label>
+                <div class="price-input-flex">
+                  <span class="currency-prefix">R$</span>
+                  <input type="number" id="coffee-price-input" min="1000" max="3000" step="10" value="1820">
+                  <span class="unit-suffix">/ sc 60kg</span>
+                </div>
+                <input type="range" id="coffee-price-range" min="1200" max="2500" step="10" value="1820" class="range-slider">
+              </div>
+            </div>
+          </div>
+
+          <!-- CARDS DE COMPARAÇÃO DE BARTER INSTANTÂNEO -->
+          <div class="barter-highlights-grid" id="barter-highlights-cards">
+            <!-- Renderizado via TypeScript -->
+          </div>
+        </div>
+
+        <!-- TABELA DETALHADA DE PREÇOS PRATICADOS -->
+        <div class="panel-box mt-4">
+          <div class="panel-box-header">
+            <div class="header-with-icon">
+              <i class="fi fi-rr-badge-dollar"></i>
+              <h2>Tabela Analítica de Preços e Condições Comerciais</h2>
+            </div>
+            <button id="btn-export-prices-csv" class="btn-secondary-small">
+              <i class="fi fi-rr-download"></i> Exportar Tabela (CSV)
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="prices-comparison-table">
+              <thead>
+                <tr>
+                  <th>Produto / Equipamento</th>
+                  <th>Linha</th>
+                  <th>Fornecedor / Concorrente</th>
+                  <th>Preço à Vista</th>
+                  <th>Preço a Prazo Safra</th>
+                  <th>Equivalente em Café (sc)</th>
+                  <th>Fonte Oficial & Data</th>
+                  <th>Veredito vs Cooxupé</th>
+                </tr>
+              </thead>
+              <tbody id="prices-table-body">
+                <!-- Linhas preenchidas via TypeScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= ABA 4: CAMPANHAS & CONDIÇÕES COMERCIAIS ================= -->
+      <section id="tab-campanhas" class="tab-pane">
+        <div class="section-intro">
+          <div class="badge-agro"><i class="fi fi-rr-badge-percent"></i> MONITORAMENTO PROMOCIONAL</div>
+          <h2>Ofertas, Campanhas Sazonais e Condições de Pagamento</h2>
+          <p>Mapeamento das condições de crédito, prazos de pagamento safra, descontos por volume e táticas de atração aplicadas pelos concorrentes.</p>
+        </div>
+
+        <div class="campaigns-grid" id="campaigns-list-grid">
+          <!-- Renderizado via TypeScript -->
+        </div>
+      </section>
+
+      <!-- ================= ABA 5: FEIRAS & EVENTOS DO SETOR ================= -->
+      <section id="tab-feiras" class="tab-pane">
+        <div class="section-intro">
+          <div class="badge-agro"><i class="fi fi-rr-calendar-check"></i> CALENDÁRIO & BENCHMARK DE FEIRAS</div>
+          <h2>Femagri vs Feiras e Dias de Campo Concorrentes</h2>
+          <p>Análise de inteligência sobre os principais eventos comerciais do setor: volumes movimentados, táticas de vendas e posicionamento da Cooxupé.</p>
+        </div>
+
+        <div class="fairs-container" id="fairs-list-container">
+          <!-- Renderizado via TypeScript -->
+        </div>
+      </section>
+
+      <!-- ================= ABA 6: DIRETRIZES TÁTICAS & MATRIZ SWOT ================= -->
+      <section id="tab-swot" class="tab-pane">
+        <div class="section-intro">
+          <div class="badge-agro"><i class="fi fi-rr-bulb"></i> INTELIGÊNCIA ESTRATÉGICA PARA GESTORES</div>
+          <h2>Matriz SWOT & Recomendações Táticas para a Equipe Cooxupé</h2>
+          <p>Diretrizes práticas para o corpo comercial, consultores técnicos de campo (RTVs) e comitê de diretoria para defender e expandir market share.</p>
+        </div>
+
+        <!-- QUADRANTES SWOT -->
+        <div class="swot-grid">
+          <div class="swot-card forca">
+            <div class="swot-header">
+              <div class="swot-badge"><i class="fi fi-rr-shield-check"></i> FORÇAS DA COOXUPÉ</div>
+              <h3>Diferenciais e Vantagens Competitivas</h3>
+            </div>
+            <div class="swot-items-list" id="swot-forcas-list"></div>
+          </div>
+
+          <div class="swot-card fraqueza">
+            <div class="swot-header">
+              <div class="swot-badge"><i class="fi fi-rr-engine-warning"></i> PONTOS A DESENVOLVER</div>
+              <h3>Vulnerabilidades Frente ao Mercado</h3>
+            </div>
+            <div class="swot-items-list" id="swot-fraquezas-list"></div>
+          </div>
+
+          <div class="swot-card oportunidade">
+            <div class="swot-header">
+              <div class="swot-badge"><i class="fi fi-rr-plant-care"></i> OPORTUNIDADES</div>
+              <h3>Janelas Estratégicas de Mercado</h3>
+            </div>
+            <div class="swot-items-list" id="swot-oportunidades-list"></div>
+          </div>
+
+          <div class="swot-card ameaca">
+            <div class="swot-header">
+              <div class="swot-badge"><i class="fi fi-rr-flame"></i> AMEAÇAS DA CONCORRÊNCIA</div>
+              <h3>Movimentos Ofensivos dos Rivais</h3>
+            </div>
+            <div class="swot-items-list" id="swot-ameacas-list"></div>
+          </div>
+        </div>
+
+        <!-- DIRETRIZES EXECUTIVAS IMEDIATAS -->
+        <div class="panel-box mt-4">
+          <div class="panel-box-header">
+            <div class="header-with-icon">
+              <i class="fi fi-rr-bullseye-arrow"></i>
+              <h2>Plano de Ação Tático para Consultores de Campo (RTVs) e Gerências de Núcleo</h2>
+            </div>
+          </div>
+          <div class="tactical-directives-grid">
+            <div class="directive-box">
+              <div class="dir-num">01</div>
+              <h4>Na Venda de Fertilizantes (NPK e Nitrogenados)</h4>
+              <p>Nunca comparar apenas o preço de tabela de balcão. Apresentar a <strong>Planilha de Custo Líquido Real</strong>, demonstrando o retorno histórico de sobras (3% a 5%) e a segurança da entrega no armazém da Cooxupé sem cobrança de armazenagem nos primeiros 180 dias.</p>
+            </div>
+            <div class="directive-box">
+              <div class="dir-num">02</div>
+              <h4>Na Defesa Contra CPRs e Revendas Privadas (Lavoro)</h4>
+              <p>Alertar o cooperado sobre a volatilidade financeira e riscos jurídicos de garantias vinculadas a fundos de investimento. A Cooxupé oferece rolagem assistida em caso de intempéries severas com laudo agronômico, sem execução sumária de garantias reais.</p>
+            </div>
+            <div class="directive-box">
+              <div class="dir-num">03</div>
+              <h4>Na Expansão da Linha de Irrigação (Cerrado e Sul de MG)</h4>
+              <p>Agilizar o convênio com integradores oficiais Netafim para estruturar projetos de gotejamento parcelados em até 4 safras fixas em café, neutralizando a investida da Coopercitrus no Cerrado Mineiro.</p>
+            </div>
+            <div class="directive-box">
+              <div class="dir-num">04</div>
+              <h4>Na Linha de Maquinário (Tratores e Colheita Mecanizada)</h4>
+              <p>Potencializar o barter da <strong>Femagri</strong> antecipando a homologação de cotas com a Agritech e Jacto. Demonstrar que o barter café em 3 safras é uma proteção cambial definitiva (hedge natural), imune a variações da taxa Selic ou CDI.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- MODAL DE DETALHES DO PRODUTO & BENCHMARK -->
+    <div id="product-detail-modal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <span class="modal-category-badge" id="modal-cat-badge">Insumos</span>
+            <h3 id="modal-product-title">Detalhes do Produto</h3>
+            <span class="modal-competitor-name" id="modal-competitor-name">Concorrente</span>
+          </div>
+          <button id="btn-close-modal" class="btn-close-modal" title="Fechar">
+            <i class="fi fi-rr-cross"></i>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-product-body">
+          <!-- Conteúdo gerado dinamicamente via TypeScript -->
+        </div>
+        <div class="modal-footer">
+          <button id="btn-modal-close-action" class="btn-secondary">Fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE GESTÃO DE COTAÇÕES E DADOS (MESA COOXUPÉ) -->
+    <div id="sync-data-modal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <span class="modal-category-badge"><i class="fi fi-rr-refresh"></i> Governança de Dados</span>
+            <h3>Atualização de Cotações & Inteligência</h3>
+            <span class="modal-competitor-name">Mesa de Operações Cooxupé & APIs Financeiras</span>
+          </div>
+          <button id="btn-close-sync-modal" class="btn-close-modal" title="Fechar">
+            <i class="fi fi-rr-cross"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- COTAÇÕES DIÁRIAS -->
+          <div>
+            <div class="modal-section-title"><i class="fi fi-rr-coffee"></i> 1. Cotação do Café Arábica (Mesa de Operações Cooxupé)</div>
+            <p style="color: var(--text-secondary); font-size: 0.84rem; margin-bottom: 8px;">
+              Valor de referência para cálculo automático das relações de troca (Barter) em todos os insumos e máquinas.
+            </p>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <span style="font-weight: 800; color: var(--coffee-amber);">R$</span>
+              <input type="number" id="modal-coffee-input" class="search-box" style="width: 150px; font-weight: 800; font-size: 1.1rem;" value="1820" min="1000" max="3500">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">/ saca 60kg (Tipo 6 bebida dura)</span>
+              <button id="btn-save-coffee-rate" class="btn-primary-small" style="margin-left: auto;">
+                <i class="fi fi-rr-check"></i> Salvar Cotação
+              </button>
+            </div>
+          </div>
+
+          <!-- DÓLAR PTAX AUTOMÁTICO -->
+          <div style="border-top: 1px dashed var(--glass-border-subtle); padding-top: 14px;">
+            <div class="modal-section-title"><i class="fi fi-rr-badge-dollar"></i> 2. Cotação do Dólar Comercial / PTAX (Ao Vivo via API)</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.03); padding: 12px; border-radius: var(--radius-md);">
+              <div>
+                <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">Valor Atual:</span>
+                <strong style="font-size: 1.3rem; color: var(--text-primary);" id="sync-dollar-display">Carregando...</strong>
+                <span id="sync-dollar-timestamp" style="display: block; font-size: 0.72rem; color: var(--text-muted);">Consultado via Banco Central / AwesomeAPI</span>
+              </div>
+              <button id="btn-refresh-dollar-api" class="btn-secondary-small">
+                <i class="fi fi-rr-refresh"></i> Consultar API Agora
+              </button>
+            </div>
+            <div id="dollar-api-feedback" class="api-feedback-box" style="display: none;"></div>
+          </div>
+
+          <!-- EXPORTAÇÃO E IMPORTAÇÃO DE DADOS (JSON) -->
+          <div style="border-top: 1px dashed var(--glass-border-subtle); padding-top: 14px;">
+            <div class="modal-section-title"><i class="fi fi-rr-database"></i> 3. Gestão dos Dados de Concorrência (Importar / Exportar JSON)</div>
+            <p style="color: var(--text-secondary); font-size: 0.82rem; margin-bottom: 10px;">
+              A equipe de inteligência de mercado pode exportar a base completa em JSON, editar ou adicionar concorrentes e importar de volta sem necessidade de programação.
+            </p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button id="btn-export-full-json" class="btn-secondary-small">
+                <i class="fi fi-rr-download"></i> Baixar Base Completa (JSON)
+              </button>
+              <label for="input-import-json" class="btn-secondary-small" style="cursor: pointer;">
+                <i class="fi fi-rr-upload"></i> Carregar Arquivo JSON
+                <input type="file" id="input-import-json" accept=".json" style="display: none;">
+              </label>
+              <button id="btn-reset-default-data" class="btn-icon-minimal" style="color: var(--danger); border-color: rgba(220,38,38,0.3); margin-left: auto;">
+                <i class="fi fi-rr-undo"></i> Restaurar Padrão
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-close-sync-footer" class="btn-secondary">Fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RODAPÉ EXECUTIVO -->
+    <footer class="main-footer">
+      <div class="footer-content">
+        <div class="footer-left">
+          <p><strong>Cooxupé Market Intelligence Cockpit</strong> &copy; 2026 — Cooperativa Regional de Cafeicultores em Guaxupé Ltda.</p>
+          <p class="text-muted">Ambiente de apoio à decisão tática e comercial. Dados consolidados de inteligência de mercado no Sul de Minas, Mogiana e Cerrado.</p>
+        </div>
+        <div class="footer-right">
+          <span class="department-signature">
+            <strong>Inteligência de Mercado - Comercial Insumos</strong>
+          </span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- SCRIPT PRINCIPAL TYPESCRIPT (Vite Module) -->
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

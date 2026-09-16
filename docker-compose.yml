@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  painel-cooxupe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cooxupe-inteligencia-competitiva
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    labels:
+      - "easypanel.service=painel-cooxupe"
