@@ -23,6 +23,7 @@ interface AppState {
 }
 
 const savedCoffee = localStorage.getItem('cooxupe_coffee_price');
+const savedTheme = localStorage.getItem('cooxupe_theme');
 
 const state: AppState = {
   currentCoffeePrice: savedCoffee ? parseFloat(savedCoffee) : COFFEE_PRICE_DEFAULT,
@@ -30,7 +31,8 @@ const state: AppState = {
   selectedCompetitor: 'all',
   searchQuery: '',
   selectedProductModal: null,
-  isDarkMode: localStorage.getItem('cooxupe_theme') === 'dark'
+  // Padrão Executivo: TEMA NOTURNO (dark), a menos que o usuário tenha escolhido explicitamente 'light'
+  isDarkMode: savedTheme !== 'light'
 };
 
 // ==========================================================================
@@ -65,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==========================================================================
-// GERENCIAMENTO DE TEMA (CLARO / NOTURNO)
+// GERENCIAMENTO DE TEMA (CLARO / NOTURNO — PADRÃO NOTURNO)
 // ==========================================================================
 function setupTheme(): void {
   const btnTheme = document.getElementById('btn-theme-toggle');
@@ -75,6 +77,11 @@ function setupTheme(): void {
     document.body.classList.add('dark-mode');
     if (themeIcon) {
       themeIcon.className = 'fi fi-rr-moon';
+    }
+  } else {
+    document.body.classList.remove('dark-mode');
+    if (themeIcon) {
+      themeIcon.className = 'fi fi-rr-sun';
     }
   }
 
