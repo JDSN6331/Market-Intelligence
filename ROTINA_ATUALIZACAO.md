@@ -8,7 +8,7 @@ Este documento estabelece o fluxo operacional, a periodicidade, as responsabilid
 ## 🎯 1. Objetivos da Rotina
 1. Garantir que a diretoria e os gestores comerciais tenham acesso a **preços reais e vigentes** praticados pelos principais concorrentes nas praças de atuação da cooperativa (Sul de Minas, Cerrado Mineiro e Média Mogiana).
 2. Manter a **relação de troca (Barter)** alinhada à cotação oficial da saca de café arábica e ao dólar.
-3. Fornecer aos RTVs (Representantes Técnicos de Vendas) e gerentes de núcleos **contra-estratégias práticas** antes que o cooperado feche compras com cooperativas congêneres (Cocatrel, Coopercitrus, Minasul) ou revendas multinacionais.
+3. Fornecer aos Vendedores/CTCs e gerentes de núcleos **contra-estratégias práticas** antes que o cooperado feche compras com cooperativas congêneres (Cocatrel, Coopercitrus, Minasul) ou revendas multinacionais.
 4. Manter a **credibilidade executiva** do painel com 100% de rastreabilidade de fontes e auditoria.
 
 ---
@@ -17,7 +17,7 @@ Este documento estabelece o fluxo operacional, a periodicidade, as responsabilid
 
 | Papel | Responsáveis | Atribuições |
 | :--- | :--- | :--- |
-| **Coleta de Campo** | RTVs, Consultores Técnicos e Compradores dos 32 Núcleos | Identificar ofertas de concorrentes, coletar encartes, propostas de balcão e condições levadas pelos cooperados. |
+| **Coleta de Campo** | Vendedores/CTCs e Compradores dos 32 Núcleos | Identificar ofertas de concorrentes, coletar encartes, propostas de balcão e condições levadas pelos cooperados. |
 | **Saneamento & Análise** | Analista de Inteligência de Mercado (Comercial Insumos) | Validar documentos, checar especificações técnicas equivalentes na Cooxupé, tabular preços e calcular paridades. |
 | **Validação Comercial** | Gerência Comercial de Insumos / Máquinas | Validar o veredito estratégico, definir diretrizes táticas de defesa e aprovar a atualização. |
 | **Governança & TI** | Administrador do Painel / TI Cooxupé | Manter o deploy no Easypanel (Hostinger VPS) e gerenciar acessos e integrações. |
@@ -28,10 +28,10 @@ Este documento estabelece o fluxo operacional, a periodicidade, as responsabilid
 
 | Dia da Semana | Horário | Etapa | Ação Operacional |
 | :--- | :--- | :--- | :--- |
-| **Segunda-feira** | 08:00 - 12:00 | **Coleta Descentralizada** | Consultores dos núcleos reportam novas campanhas rivais, encartes de feiras e cotações de balcão via formulário padrão. |
+| **Segunda-feira** | 08:00 - 12:00 | **Coleta Descentralizada** | Vendedores/CTCs dos núcleos reportam novas campanhas rivais, encartes de feiras e cotações de balcão via formulário padrão. |
 | **Segunda-feira** | 14:00 - 17:00 | **Triagem & Auditoria** | O Analista de Mercado filtra as informações com alto grau de confiabilidade e atribui os níveis de auditoria. |
 | **Terça-feira** | 09:00 - 11:00 | **Paridade & Barter** | Cruzamento com a cotação oficial da saca de café arábica fechada na Mesa de Operações da Cooxupé e Dólar PTAX. |
-| **Terça-feira** | 14:00 - 15:30 | **Comitê de Insumos** | Apresentação rápida para a Gerência Comercial e definição das *Contra-Estratégias* para os RTVs. |
+| **Terça-feira** | 14:00 - 15:30 | **Comitê de Insumos** | Apresentação rápida para a Gerência Comercial e definição das *Contra-Estratégias* para os Vendedores/CTCs. |
 | **Quarta-feira** | 08:00 | **Publicação no Painel** | Atualização do Cockpit (Cotações, Novos Produtos, Alertas Críticos e Matriz SWOT). |
 | **Sexta-feira** | 16:30 | **Fechamento & Benchmark** | Avaliação do impacto das contra-estratégias no volume de vendas da semana na Cooxupé. |
 
@@ -96,9 +96,9 @@ Toda a base de dados do painel é centralizada e estritamente tipada no arquivo:
 
 ---
 
-## 📋 5. Formulário Padrão de Coleta de Campo (Checklist para RTVs)
+## 📋 5. Formulário Padrão de Coleta de Campo (Checklist para Vendedores/CTCs)
 
-Para padronizar o envio de informações pelos consultores técnicos e compradores de núcleos, utilize o seguinte roteiro de 8 perguntas:
+Para padronizar o envio de informações pelos Vendedores/CTCs e compradores de núcleos, utilize o seguinte roteiro de 8 perguntas:
 
 1. **Concorrente Ofertante:** (ex.: Cocatrel, Minasul, Coopercitrus, Revenda Privada X, Concessionária Y).
 2. **Praça / Município:** (ex.: Guaxupé, Varginha, Alfenas, Franca, Patrocínio, Araguari).

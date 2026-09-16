@@ -473,21 +473,55 @@ function renderBarterHighlights(): void {
     const scCooxupe = item.cooxupePrice / coffeePrice;
     const scCompetitor = item.competitorPrice / coffeePrice;
     const diffSc = scCompetitor - scCooxupe;
+    const diffReais = item.competitorPrice - item.cooxupePrice;
     const isCooxupeCheaper = diffSc > 0;
 
     return `
       <div class="barter-stat-card">
-        <div class="barter-card-title">${item.title}</div>
-        <div class="barter-sc-count">
-          ${formatBags(scCooxupe)}
-          <small>na Cooxupé</small>
+        <div class="barter-card-header">
+          <span class="barter-card-cat"><i class="fi fi-rr-tag"></i> ${item.category}</span>
+          <div class="barter-card-title">${item.title}</div>
         </div>
-        <div class="barter-comparison-delta ${isCooxupeCheaper ? 'text-green' : 'text-amber'}">
-          <i class="fi fi-rr-${isCooxupeCheaper ? 'arrow-trend-down' : 'arrow-trend-up'}"></i>
-          <span>${item.competitorName}: <strong>${formatBags(scCompetitor)}</strong> (${isCooxupeCheaper ? 'Economia de ' + formatBags(diffSc) : 'Diferença de ' + formatBags(Math.abs(diffSc))})</span>
+
+        <div class="barter-sides-grid">
+          <!-- BASE CONCORRENTE (O QUE O MERCADO PEDE) -->
+          <div class="barter-side competitor">
+            <div class="barter-side-label">
+              <i class="fi fi-rr-shop"></i> Mercado (${item.competitorName})
+            </div>
+            <div class="barter-side-price">${formatCurrency(item.competitorPrice)} / ${item.unit}</div>
+            <div class="barter-side-sc" title="Sacas exigidas pelo concorrente">
+              ${formatBags(scCompetitor)}
+            </div>
+            <span class="barter-side-sub">exigidas pelo concorrente</span>
+          </div>
+
+          <!-- OFERTA COOXUPÉ (O QUE A COOPERATIVA OFERECE) -->
+          <div class="barter-side cooxupe">
+            <div class="barter-side-label">
+              <i class="fi fi-rr-shield-check"></i> Condição Cooxupé
+            </div>
+            <div class="barter-side-price">${formatCurrency(item.cooxupePrice)} / ${item.unit}</div>
+            <div class="barter-side-sc text-green" title="Sacas necessárias na Cooxupé">
+              ${formatBags(scCooxupe)}
+            </div>
+            <span class="barter-side-sub">necessárias na Cooxupé</span>
+          </div>
         </div>
+
+        <!-- DIRETRIZ COMPARATIVA PARA O VENDEDOR/CTC -->
+        <div class="barter-argument-badge ${isCooxupeCheaper ? 'advantage' : 'alert'}">
+          <i class="fi fi-rr-${isCooxupeCheaper ? 'check-circle' : 'info'}"></i>
+          <div>
+            <strong>${isCooxupeCheaper ? 'Vantagem Cooxupé para o Vendedor/CTC:' : 'Atenção Comercial:'}</strong>
+            ${isCooxupeCheaper 
+              ? `O cooperado economiza <strong>${formatBags(diffSc)}</strong> (${formatCurrency(diffReais)}) comprando na Cooxupé.` 
+              : `Diferencial de ${formatBags(Math.abs(diffSc))}. Vendedor/CTC deve apresentar sobras cooperativas e frete CIF.`}
+          </div>
+        </div>
+
         <div class="barter-source-footnote">
-          <i class="fi fi-rr-document"></i> <strong>Origem Concorrente:</strong> ${item.sourceNote}
+          <i class="fi fi-rr-document"></i> <strong>Preço Base do Concorrente:</strong> ${item.sourceNote}
         </div>
       </div>
     `;
@@ -640,7 +674,7 @@ function renderSwotMatrix(): void {
         <div class="swot-item-title">${item.title}</div>
         <div class="swot-item-details">${item.details}</div>
         <div class="swot-item-action">
-          <i class="fi fi-rr-arrow-right"></i> Diretriz para RTVs: ${item.tacticalDirective}
+          <i class="fi fi-rr-arrow-right"></i> Diretriz para Vendedores/CTCs: ${item.tacticalDirective}
         </div>
         <div class="swot-item-source">
           <i class="fi fi-rr-document"></i> <strong>Base Documental:</strong> ${item.sourceOrBasis}

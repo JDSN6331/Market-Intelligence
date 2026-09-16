@@ -35,8 +35,8 @@ Cockpit executivo e estratégico desenvolvido para fornecer aos gestores e à di
    - Modal com detalhamento técnico profundo, culturas-alvo, pós-venda e produto equivalente Cooxupé.
 
 3. **Radar de Preços & Simulador de Barter (Relação de Troca em Café):**
-   - Simulador interativo com ajuste em tempo real da cotação da saca de café arábica (R$/sc de 60 kg).
-   - Recálculo dinâmico automático da quantidade de sacas necessárias para aquisição de adubos, irrigação e tratores na Cooxupé vs. concorrentes.
+   - Simulador comparativo que calcula a paridade de troca em sacas de café (60 kg) tomando como **base primária os preços reais apurados nos concorrentes da Cooxupé**.
+   - Confronto direto e instantâneo entre o que o mercado exige vs o que a Cooxupé oferece, municiando o **Vendedor/CTC** com a vantagem líquida e economia em sacas para o cooperado.
    - Tabela comparativa analítica com exportação em **CSV para Excel**.
 
 4. **Campanhas Sazonais & Condições Comerciais:**
@@ -49,7 +49,7 @@ Cockpit executivo e estratégico desenvolvido para fornecer aos gestores e à di
 
 6. **Diretrizes Táticas (Matriz SWOT):**
    - Forças, Fraquezas, Oportunidades e Ameaças da Cooxupé organizadas por pilares operacionais.
-   - Diretrizes táticas numeradas para aplicação imediata pelos consultores de campo (RTVs) e gerências regionais de núcleos.
+   - Diretrizes táticas numeradas para aplicação imediata pelos Vendedores/CTCs e gerências regionais de núcleos.
 
 ---
 
@@ -92,4 +92,4 @@ Consulte o guia passo a passo em [DEPLOY_EASYPANEL.md](DEPLOY_EASYPANEL.md) para
 ---
 
 ## 📊 Rotina Operacional & Governança de Atualização
-Consulte o manual de governança em [ROTINA_ATUALIZACAO.md](ROTINA_ATUALIZACAO.md) para o cronograma semanal de coleta de preços nos 32 núcleos, formulário de campo para os RTVs e métodos de atualização (via painel, planilha ou Git).
+Consulte o manual de governança em [ROTINA_ATUALIZACAO.md](ROTINA_ATUALIZACAO.md) para o cronograma semanal de coleta de preços nos 32 núcleos, formulário de campo para os Vendedores/CTCs e métodos de atualização (via painel, planilha ou Git).

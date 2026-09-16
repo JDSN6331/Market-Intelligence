@@ -111,7 +111,7 @@ export const COMPETITORS: Competitor[] = [
       'Maior cooperativa de cafeicultores do mundo (36k+ cooperados)',
       'Excelente liquidez e solidez na originação e barter de café',
       'Femagri consolidada como maior feira cooperativa do setor',
-      'Equipe agronômica própria com assistência técnica capilarizada',
+      'Corpo de Vendedores/CTCs próprio com assistência técnica capilarizada',
       'Retorno de sobras cooperativas comprovado no encerramento de safra'
     ],
     weaknesses: [
@@ -393,9 +393,9 @@ export const PRODUCTS_CATALOG: ProductItem[] = [
     },
     warrantyOrSupport: 'Garantia Yara de pureza física e análise de teor garantido em contrato.',
     dataSource: {
-      sourceName: 'Proposta Comercial Direta Coopercitrus (Filial Guaxupé)',
+      sourceName: 'Proposta Comercial Direta Coopercitrus (Filial São Sebastião do Paraíso)',
       collectionMethod: 'Orçamento formal emitido pela filial comercial do concorrente',
-      competitorChannel: 'Filial Coopercitrus Insumos - Guaxupé / SP-MG',
+      competitorChannel: 'Filial Coopercitrus Insumos - São Sebastião do Paraíso / MG',
       collectionDate: '11/09/2026',
       auditLevel: 'Proposta Comercial Concorrente'
     }
@@ -793,7 +793,7 @@ export const PRODUCTS_CATALOG: ProductItem[] = [
     },
     warrantyOrSupport: 'Garantia estendida de 3 anos para motor e transmissão.',
     dataSource: {
-      sourceName: 'Proposta Comercial Concessionária Valtra Coopercitrus (Ribeirão Preto / Guaxupé)',
+      sourceName: 'Proposta Comercial Concessionária Valtra Coopercitrus (Ribeirão Preto / São Sebastião do Paraíso)',
       collectionMethod: 'Orçamento formal do concorrente com simulação via Banco DLL / Valtra',
       competitorChannel: 'Concessionária Valtra Oficial Coopercitrus',
       collectionDate: '11/09/2026',
@@ -963,7 +963,7 @@ export const FAIR_EVENTS: FairEvent[] = [
     period: 'Maio (Anual)',
     focus: ['Mecanização Cafeeira', 'Colheita e Pós-Colheita', 'Defensivos', 'Palestras Técnicas'],
     competitorsPresent: ['Cocatrel', 'Minasul', 'Lavoro Agro', 'Concessionárias Case/New Holland/John Deere', 'Pinhalense'],
-    cooxupeStrategy: 'Manter estande institucional forte e equipe comercial dos núcleos do Sul de Minas (Alfenas, Três Pontas, Varginha) para atender cooperados e marcar presença estratégica.',
+    cooxupeStrategy: 'Manter estande institucional forte e corpo de Vendedores/CTCs dos núcleos do Sul de Minas (Alfenas, Três Pontas, Varginha) para atender cooperados e marcar presença estratégica.',
     historicalVolume: 'R$ 380+ Milhões negociados / 20 mil visitantes',
     keyTacticsObserved: [
       'Cocatrel atua como anfitriã regional, ofertando pacotes agressivos de colhedoras e defensivos',
@@ -1060,7 +1060,7 @@ export const INTELLIGENCE_ALERTS: IntelligenceAlert[] = [
     title: 'Cocatrel lança adubo 20-00-20 com preço 2,8% abaixo da tabela Cooxupé no Sul de Minas',
     description: 'Campanha de adubação antecipada com entrega até novembro está atraindo cafeicultores de Três Pontas, Varginha e Campos Gerais. A Cocatrel está exigindo travamento de 30% da safra em barter para conceder o desconto.',
     impactScore: 8.5,
-    suggestedAction: 'Orientar os RTVs a reforçarem a simulação de sobras cooperativas (que historicamente devolvem 4% aos associados) e validar a isenção de taxa de armazenagem nos primeiros 6 meses.',
+    suggestedAction: 'Orientar os Vendedores/CTCs a reforçarem a simulação de sobras cooperativas (que historicamente devolvem 4% aos associados) e validar a isenção de taxa de armazenagem nos primeiros 6 meses.',
     source: 'Tabela de Balcão e Pedido Nº 84920 da Loja Agro Cocatrel Três Pontas',
     methodology: 'Cotação direta presencial no balcão do concorrente e verificação de contrato futuro'
   },
@@ -1124,7 +1124,7 @@ export const SWOT_MATRIX: SwotItem[] = [
     pillar: 'insumos',
     title: 'Retorno de Sobras Cooperativas',
     details: 'Ao final de cada exercício fiscal, as sobras do departamento de insumos e armazenagem são distribuídas aos cooperados proporcionalmente às compras.',
-    tacticalDirective: 'Treinar os consultores de campo (RTVs) a apresentar o "Custo Efetivo Final" (Preço Nominal menos as Sobras Estimadas de 3% a 5%).',
+    tacticalDirective: 'Treinar os Vendedores/CTCs a apresentar o "Custo Efetivo Final" (Preço Nominal menos as Sobras Estimadas de 3% a 5%).',
     sourceOrBasis: 'Ata da Assembleia Geral Ordinária (AGO) Cooxupé de Março de 2026'
   },
   {

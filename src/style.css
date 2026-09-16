@@ -1938,6 +1938,43 @@ body.dark-mode .btn-card-details:hover {
 .sim-title-group p {
   color: var(--text-secondary);
   font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* BANNER EXPLICATIVO DO SIMULADOR (BASE CONCORRENTES) */
+.sim-banner-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(30, 94, 58, 0.08);
+  border-left: 4px solid var(--agri-primary);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-top: 14px;
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+body.dark-mode .sim-banner-note {
+  background: rgba(67, 160, 71, 0.12);
+  border-left-color: var(--agri-accent);
+  color: #cbd5e1;
+}
+
+.banner-note-icon {
+  font-size: 1.1rem;
+  color: var(--agri-primary);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+body.dark-mode .banner-note-icon {
+  color: var(--agri-accent);
+}
+
+.banner-note-content strong {
+  color: var(--text-primary);
 }
 
 .sim-controls-group {
@@ -2001,71 +2038,198 @@ body.dark-mode .price-input-flex input {
   cursor: pointer;
 }
 
-/* CARDS DE DESTAQUE DO BARTER */
+.slider-hint {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* CARDS DE DESTAQUE DO BARTER: COMPARAÇÃO MERCADO VS COOXUPÉ */
 .barter-highlights-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
   gap: 16px;
 }
 
 .barter-stat-card {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.55);
   border: 1px solid var(--glass-border-subtle);
   border-radius: var(--radius-md);
   padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  transition: transform var(--transition-fast), border-color var(--transition-fast);
+  gap: 12px;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 body.dark-mode .barter-stat-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .barter-stat-card:hover {
   transform: translateY(-3px);
   border-color: var(--agri-accent);
+  box-shadow: var(--glass-shadow-hover);
 }
 
-.barter-card-title {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--text-secondary);
-}
-
-.barter-sc-count {
-  font-size: 1.8rem;
-  font-weight: 800;
-  font-family: 'Outfit', sans-serif;
-  color: var(--agri-primary);
+.barter-card-header {
   display: flex;
-  align-items: baseline;
-  gap: 6px;
+  flex-direction: column;
+  gap: 4px;
 }
 
-body.dark-mode .barter-sc-count {
-  color: var(--agri-light);
-}
-
-.barter-sc-count small {
-  font-size: 0.85rem;
+.barter-card-cat {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
   color: var(--text-muted);
-  font-weight: 500;
-}
-
-.barter-comparison-delta {
-  font-size: 0.78rem;
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+.barter-card-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+/* GRID COMPARATIVO LADO A LADO (MERCADO VS COOXUPÉ) */
+.barter-sides-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.barter-side {
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--glass-border-subtle);
+}
+
+.barter-side.competitor {
+  background: rgba(217, 155, 38, 0.06);
+  border-color: rgba(217, 155, 38, 0.3);
+}
+
+body.dark-mode .barter-side.competitor {
+  background: rgba(217, 155, 38, 0.08);
+  border-color: rgba(217, 155, 38, 0.25);
+}
+
+.barter-side.cooxupe {
+  background: rgba(30, 94, 58, 0.08);
+  border-color: rgba(30, 94, 58, 0.35);
+}
+
+body.dark-mode .barter-side.cooxupe {
+  background: rgba(67, 160, 71, 0.1);
+  border-color: rgba(67, 160, 71, 0.35);
+}
+
+.barter-side-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 4px;
+}
+
+.barter-side.competitor .barter-side-label {
+  color: var(--coffee-amber);
+}
+
+.barter-side.cooxupe .barter-side-label {
+  color: var(--agri-primary);
+}
+
+body.dark-mode .barter-side.cooxupe .barter-side-label {
+  color: var(--agri-light);
+}
+
+.barter-side-price {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.barter-side-sc {
+  font-size: 1.45rem;
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+  color: var(--text-primary);
+  margin-top: 4px;
+  line-height: 1.1;
+}
+
+.barter-side.cooxupe .barter-side-sc {
+  color: var(--agri-primary);
+}
+
+body.dark-mode .barter-side.cooxupe .barter-side-sc {
+  color: var(--agri-light);
+}
+
+.barter-side-sub {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* BADGE COM DIRETRIZ DE ARGUMENTAÇÃO PARA O VENDEDOR/CTC */
+.barter-argument-badge {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.barter-argument-badge i {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.barter-argument-badge.advantage {
+  background: rgba(30, 94, 58, 0.12);
+  color: #15803d;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+body.dark-mode .barter-argument-badge.advantage {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.35);
+}
+
+.barter-argument-badge.alert {
+  background: rgba(217, 155, 38, 0.12);
+  color: #b45309;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+body.dark-mode .barter-argument-badge.alert {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.35);
 }
 
 .barter-source-footnote {
   font-size: 0.71rem;
   color: var(--text-muted);
   border-top: 1px dashed var(--glass-border-subtle);
-  padding-top: 4px;
+  padding-top: 6px;
   margin-top: 2px;
 }
 
