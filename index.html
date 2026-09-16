@@ -881,12 +881,16 @@
       </div>
     </div>
 
-    <!-- MODAL GUIA DE INSTALAÇÃO NO IOS (IPHONE / IPAD) -->
-    <div class="modal-overlay" id="modal-ios-install">
-      <div class="modal-dialog ios-guide-dialog">
+    <!-- MODAL GUIA DE INSTALAÇÃO NO CELULAR / PWA -->
+    <div class="modal-overlay hidden" id="modal-ios-install">
+      <div class="modal-card ios-guide-dialog">
         <div class="modal-header">
-          <h3><i class="fi fi-rr-mobile-button text-gold"></i> Instalar no iPhone ou iPad</h3>
-          <button class="btn-modal-close" id="btn-close-ios-install">
+          <div class="modal-title-group">
+            <span class="modal-category-badge"><i class="fi fi-rr-mobile-button text-gold"></i> Aplicativo Mobile PWA</span>
+            <h3>Instalar no Celular</h3>
+            <span class="modal-competitor-name">Instale na tela inicial sem precisar de App Store</span>
+          </div>
+          <button class="btn-close-modal" id="btn-close-ios-install" title="Fechar">
             <i class="fi fi-rr-cross"></i>
           </button>
         </div>
@@ -899,34 +903,35 @@
             </div>
           </div>
           <p class="ios-guide-intro">
-            Para instalar esta aplicação no seu dispositivo Apple sem precisar da App Store, siga os 3 passos rápidos:
+            Para instalar esta aplicação no seu celular (iPhone ou Android) com acesso direto offline, siga os 3 passos:
           </p>
           <div class="ios-step-list">
             <div class="ios-step-item">
               <div class="ios-step-num">1</div>
               <div class="ios-step-content">
-                <strong>Toque no botão Compartilhar</strong>
-                <p>Na barra inferior do Safari, toque no ícone <i class="fi fi-rr-share-square"></i> (quadrado com seta apontando para cima).</p>
+                <strong>Toque no menu ou botão Compartilhar</strong>
+                <p>No iPhone (Safari), toque no ícone <i class="fi fi-rr-share-square"></i> <strong>Compartilhar</strong> na barra inferior. No Android (Chrome), toque no menu <i class="fi fi-rr-menu-dots-vertical"></i> <strong>(3 pontinhos)</strong>.</p>
               </div>
             </div>
             <div class="ios-step-item">
               <div class="ios-step-num">2</div>
               <div class="ios-step-content">
                 <strong>Selecione "Adicionar à Tela de Início"</strong>
-                <p>Role a lista de ações para baixo até encontrar <i class="fi fi-rr-plus-square"></i> <strong>Adicionar à Tela de Início</strong>.</p>
+                <p>Role a lista de opções para baixo até encontrar <i class="fi fi-rr-plus-square"></i> <strong>Adicionar à Tela de Início</strong> (ou "Instalar aplicativo").</p>
               </div>
             </div>
             <div class="ios-step-item">
               <div class="ios-step-num">3</div>
               <div class="ios-step-content">
-                <strong>Confirme em "Adicionar"</strong>
-                <p>No canto superior direito, toque em <strong>Adicionar</strong>. O ícone oficial estará disponível como um aplicativo nativo!</p>
+                <strong>Confirme em "Adicionar" ou "Instalar"</strong>
+                <p>No canto superior direito, confirme em <strong>Adicionar</strong>. O ícone oficial aparecerá na tela do seu aparelho!</p>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button class="btn-primary" id="btn-understood-ios-install">Entendi, vou instalar</button>
+          <button class="btn-secondary" id="btn-cancel-ios-install">Fechar</button>
         </div>
       </div>
     </div>

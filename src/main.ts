@@ -239,8 +239,8 @@ function setupMobileNavigation(): void {
 
   sheetBtnSync?.addEventListener('click', () => {
     closeMobileSheet();
-    const modalSync = document.getElementById('modal-sync-data');
-    if (modalSync) modalSync.classList.add('active');
+    const modalSync = document.getElementById('sync-data-modal');
+    if (modalSync) modalSync.classList.remove('hidden');
   });
 
   sheetBtnTheme?.addEventListener('click', () => {
@@ -259,8 +259,8 @@ function setupPwaInstall(): void {
   const iosModal = document.getElementById('modal-ios-install');
   const btnCloseIos = document.getElementById('btn-close-ios-install');
   const btnUnderstood = document.getElementById('btn-understood-ios-install');
+  const btnCancelIos = document.getElementById('btn-cancel-ios-install');
 
-  const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone === true;
 
   if (isStandalone) {
@@ -290,6 +290,14 @@ function setupPwaInstall(): void {
     deferredPrompt = null;
   });
 
+  const openInstallModal = () => {
+    iosModal?.classList.remove('hidden');
+  };
+
+  const closeInstallModal = () => {
+    iosModal?.classList.add('hidden');
+  };
+
   installButtons.forEach(btn => {
     btn.addEventListener('click', async (e) => {
       e.stopPropagation();
@@ -300,19 +308,24 @@ function setupPwaInstall(): void {
           installButtons.forEach(b => b.style.display = 'none');
         }
         deferredPrompt = null;
-      } else if (isIos) {
-        iosModal?.classList.add('active');
       } else {
-        alert('Para instalar o app Market Intelligence no seu aparelho:\n\n• No Chrome/Edge (Android/PC): Clique nos 3 pontinhos (⋮) e em "Instalar aplicativo" ou "Adicionar à tela inicial".\n• No Safari (iPhone/iPad): Toque no botão Compartilhar e selecione "Adicionar à Tela de Início".');
+        openInstallModal();
       }
     });
   });
 
-  const closeIos = () => iosModal?.classList.remove('active');
-  btnCloseIos?.addEventListener('click', closeIos);
-  btnUnderstood?.addEventListener('click', closeIos);
+  btnCloseIos?.addEventListener('click', closeInstallModal);
+  btnUnderstood?.addEventListener('click', closeInstallModal);
+  btnCancelIos?.addEventListener('click', closeInstallModal);
+
   iosModal?.addEventListener('click', (e) => {
-    if (e.target === iosModal) closeIos();
+    if (e.target === iosModal) closeInstallModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && iosModal && !iosModal.classList.contains('hidden')) {
+      closeInstallModal();
+    }
   });
 }
 
