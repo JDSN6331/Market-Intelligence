@@ -3932,3 +3932,539 @@ body.dark-mode .dossier-footer {
   gap: 5px;
 }
 
+/* ==========================================================================
+   PWA & EXPERIÊNCIA MOBILE NATIVA (SMARTPHONES E TABLETS)
+   ========================================================================== */
+
+/* Botão de Instalar no Ticker / Header */
+.btn-install-pwa {
+  background: linear-gradient(135deg, rgba(217, 155, 38, 0.25), rgba(245, 158, 11, 0.15)) !important;
+  border: 1px solid rgba(245, 158, 11, 0.5) !important;
+  color: #FCD34D !important;
+  font-weight: 700 !important;
+  animation: pulseInstall 3s infinite;
+}
+
+@keyframes pulseInstall {
+  0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+}
+
+/* BARRA DE NAVEGAÇÃO INFERIOR FIXA (MOBILE BOTTOM NAV) */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid var(--border-subtle);
+  z-index: 999;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 8px calc(env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode .mobile-bottom-nav {
+  background: rgba(11, 19, 43, 0.94);
+  border-top-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.45);
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 58px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-nav-item i {
+  font-size: 1.25rem;
+  margin-bottom: 3px;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+}
+
+.mobile-nav-item:active {
+  transform: scale(0.92);
+}
+
+.mobile-nav-item.active {
+  color: var(--agri-primary);
+  font-weight: 800;
+}
+
+body.dark-mode .mobile-nav-item.active {
+  color: #52B788;
+}
+
+.mobile-nav-item.active i {
+  transform: translateY(-2px);
+  color: var(--agri-primary);
+}
+
+body.dark-mode .mobile-nav-item.active i {
+  color: #6BE0A6;
+  filter: drop-shadow(0 0 6px rgba(107, 224, 166, 0.5));
+}
+
+.mobile-nav-badge {
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  background: var(--danger);
+  color: #FFFFFF;
+  font-size: 0.62rem;
+  font-weight: 800;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* PAINEL DESLIZANTE MOBILE (BOTTOM SHEET "MAIS") */
+.mobile-sheet-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1001;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-sheet-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+.mobile-bottom-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: -100%;
+  background: var(--bg-surface, #FFFFFF);
+  border-radius: 24px 24px 0 0;
+  border-top: 1px solid var(--border-subtle);
+  padding: 16px 20px calc(24px + env(safe-area-inset-bottom, 16px));
+  z-index: 1002;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.35);
+  transition: bottom 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+body.dark-mode .mobile-bottom-sheet {
+  background: #111A2E;
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.mobile-bottom-sheet.active {
+  bottom: 0;
+}
+
+.sheet-drag-handle {
+  width: 44px;
+  height: 5px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 0 auto 14px auto;
+}
+
+body.dark-mode .sheet-drag-handle {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sheet-header h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-primary);
+}
+
+.sheet-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sheet-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 12px 14px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+body.dark-mode .sheet-item {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.sheet-item:hover, .sheet-item:active {
+  background: var(--agri-tint);
+  border-color: var(--agri-primary);
+  transform: translateX(3px);
+}
+
+.sheet-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.sheet-icon-wrap.amber { background: rgba(245, 158, 11, 0.15); color: #F59E0B; }
+.sheet-icon-wrap.green { background: rgba(16, 185, 129, 0.15); color: #10B981; }
+.sheet-icon-wrap.purple { background: rgba(139, 92, 246, 0.15); color: #8B5CF6; }
+.sheet-icon-wrap.blue { background: rgba(14, 165, 233, 0.15); color: #0EA5E9; }
+.sheet-icon-wrap.teal { background: rgba(20, 184, 166, 0.15); color: #14B8A6; }
+.sheet-icon-wrap.gold { background: rgba(217, 155, 38, 0.2); color: #D99B26; }
+
+.sheet-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.sheet-item-text strong {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.sheet-item-text small {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.sheet-item-highlight {
+  background: linear-gradient(135deg, rgba(30, 94, 58, 0.12), rgba(217, 155, 38, 0.12)) !important;
+  border: 1px solid rgba(217, 155, 38, 0.4) !important;
+}
+
+.sheet-badge {
+  background: var(--gold-harvest);
+  color: #111827;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+}
+
+/* GUIA DE INSTALAÇÃO NO IOS (APPLE SAFARI) */
+.ios-guide-dialog {
+  max-width: 440px;
+}
+
+.ios-app-preview {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 16px;
+}
+
+body.dark-mode .ios-app-preview {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ios-preview-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.ios-preview-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ios-preview-info strong {
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.ios-preview-info span {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.ios-guide-intro {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+
+.ios-step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ios-step-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+}
+
+body.dark-mode .ios-step-item {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.ios-step-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--agri-primary);
+  color: #FFFFFF;
+  font-size: 0.8rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ios-step-content strong {
+  font-size: 0.86rem;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.ios-step-content p {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.ios-step-content i {
+  color: var(--agri-primary);
+  font-size: 0.88rem;
+}
+
+body.dark-mode .ios-step-content i {
+  color: #6BE0A6;
+}
+
+/* ==========================================================================
+   BREAKPOINTS RESPONSIVOS PARA MOBILE (SMARTPHONES E TABLETS <= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Ativa barra inferior mobile */
+  .mobile-bottom-nav {
+    display: flex;
+  }
+
+  /* Oculta a navegação de abas no topo em mobile, usando a barra inferior + sheet */
+  .main-nav-tabs {
+    display: none;
+  }
+
+  /* Espaço reservado para a barra inferior não cobrir os cards */
+  .content-wrapper {
+    padding: 16px 14px calc(80px + env(safe-area-inset-bottom, 16px)) 14px;
+  }
+
+  /* Ajuste no cabeçalho em mobile */
+  .main-header {
+    padding: 18px 16px;
+  }
+
+  .header-brand {
+    gap: 12px;
+  }
+
+  .brand-logo-badge {
+    width: 44px;
+    height: 44px;
+  }
+
+  .logo-icon {
+    font-size: 1.4rem;
+  }
+
+  .brand-title {
+    font-size: 1.25rem;
+  }
+
+  .brand-title span {
+    font-size: 1rem;
+    display: block;
+  }
+
+  .brand-subtitle {
+    font-size: 0.78rem;
+  }
+
+  .header-quick-bar {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+
+  .header-quick-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .quick-stat-card {
+    flex-shrink: 0;
+    min-width: 220px;
+    padding: 10px 14px;
+  }
+
+  /* Ticker Bar em Mobile */
+  .top-ticker-bar {
+    padding: 4px 10px;
+  }
+
+  .ticker-live-badge {
+    padding: 2px 7px;
+    font-size: 0.65rem;
+  }
+
+  .ticker-item {
+    font-size: 0.76rem;
+    gap: 6px;
+  }
+
+  .ticker-actions .btn-text {
+    display: none;
+  }
+
+  .ticker-actions .btn-icon-minimal {
+    padding: 6px 8px;
+  }
+
+  /* Cards e Grids em Mobile */
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .kpi-card {
+    padding: 16px;
+  }
+
+  .kpi-value {
+    font-size: 1.65rem;
+  }
+
+  .dashboard-split-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dossier-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dossier-card {
+    padding: 16px;
+  }
+
+  .dossier-card-image-wrap {
+    height: 160px;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .barter-simulator-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .campaigns-grid,
+  .fairs-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  /* Modal em Mobile */
+  .modal-dialog {
+    width: 94%;
+    max-height: 90vh;
+    padding: 18px;
+    margin: auto;
+  }
+
+  /* Tabelas com Scroll Suave em Mobile */
+  .table-responsive {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+  }
+
+  /* Rodapé com espaçamento seguro */
+  .main-footer {
+    padding-bottom: calc(70px + env(safe-area-inset-bottom, 16px));
+  }
+}
+
+

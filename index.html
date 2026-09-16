@@ -2,10 +2,20 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Painel de Inteligência Competitiva | Cooxupé</title>
   <meta name="description" content="Cockpit Executivo de Inteligência Competitiva da Cooxupé: Insumos, Irrigação, Maquinário Agrícola, Radar de Preços, Simulador de Barter e Monitor de Feiras.">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  
+  <!-- PWA Web App Manifest & Configurações Mobile -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#1E5E3A">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Market Intel">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
   
   <!-- Fontes Tipográficas Modernas (Google Fonts) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -123,6 +133,10 @@
       </div>
 
       <div class="ticker-actions">
+        <button id="btn-pwa-install-header" class="btn-icon-minimal btn-install-pwa" title="Instalar Aplicativo no Dispositivo" style="display: none;">
+          <i class="fi fi-rr-mobile-button"></i>
+          <span class="btn-text">Instalar App</span>
+        </button>
         <button id="btn-open-sync-modal" class="btn-icon-minimal" title="Atualizar Cotações do Café e Dólar">
           <i class="fi fi-rr-refresh"></i>
           <span class="btn-text">Atualizar Cotações</span>
@@ -772,6 +786,150 @@
         </div>
       </div>
     </footer>
+
+    <!-- BARRA DE NAVEGAÇÃO MOBILE INFERIOR (PWA NATIVE FEEL) -->
+    <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+      <button class="mobile-nav-item active" data-tab="cockpit" title="Cockpit Geral">
+        <i class="fi fi-rr-dashboard"></i>
+        <span>Cockpit</span>
+        <span class="mobile-nav-badge">4</span>
+      </button>
+      <button class="mobile-nav-item" data-tab="concorrentes" title="Dossiê Concorrentes">
+        <i class="fi fi-rr-building"></i>
+        <span>Dossiê</span>
+      </button>
+      <button class="mobile-nav-item" data-tab="barter" title="Simulador Barter">
+        <i class="fi fi-rr-arrows-repeat"></i>
+        <span>Barter</span>
+      </button>
+      <button class="mobile-nav-item" data-tab="produtos" title="Catálogo de Produtos">
+        <i class="fi fi-rr-boxes"></i>
+        <span>Catálogo</span>
+      </button>
+      <button class="mobile-nav-item" id="btn-mobile-more-trigger" title="Mais Opções">
+        <i class="fi fi-rr-apps"></i>
+        <span>Mais</span>
+      </button>
+    </nav>
+
+    <!-- PAINEL DESLIZANTE MOBILE (BOTTOM SHEET "MAIS OPÇÕES") -->
+    <div class="mobile-sheet-overlay" id="mobile-sheet-overlay"></div>
+    <div class="mobile-bottom-sheet" id="mobile-bottom-sheet">
+      <div class="sheet-drag-handle"></div>
+      <div class="sheet-header">
+        <h3><i class="fi fi-rr-apps"></i> Mais Funcionalidades</h3>
+        <button class="btn-icon-minimal" id="btn-close-mobile-sheet">
+          <i class="fi fi-rr-cross"></i>
+        </button>
+      </div>
+      <div class="sheet-grid">
+        <button class="sheet-item" data-tab="campanhas">
+          <div class="sheet-icon-wrap amber">
+            <i class="fi fi-rr-badge-percent"></i>
+          </div>
+          <div class="sheet-item-text">
+            <strong>Campanhas & Condições</strong>
+            <small>Prazos, taxas de juros e bonificações</small>
+          </div>
+        </button>
+        <button class="sheet-item" data-tab="feiras">
+          <div class="sheet-icon-wrap green">
+            <i class="fi fi-rr-calendar-check"></i>
+          </div>
+          <div class="sheet-item-text">
+            <strong>Feiras & Eventos</strong>
+            <small>Femagri, Expocafé, Agrishow e mais</small>
+          </div>
+        </button>
+        <button class="sheet-item" data-tab="swot">
+          <div class="sheet-icon-wrap purple">
+            <i class="fi fi-rr-bulb"></i>
+          </div>
+          <div class="sheet-item-text">
+            <strong>Diretrizes Táticas (SWOT)</strong>
+            <small>Matriz de forças, fraquezas e defesas</small>
+          </div>
+        </button>
+        <button class="sheet-item" id="sheet-btn-sync">
+          <div class="sheet-icon-wrap blue">
+            <i class="fi fi-rr-refresh"></i>
+          </div>
+          <div class="sheet-item-text">
+            <strong>Cotações & Gestão de Dados</strong>
+            <small>Ajustar café, dólar ou base JSON</small>
+          </div>
+        </button>
+        <button class="sheet-item" id="sheet-btn-theme">
+          <div class="sheet-icon-wrap teal">
+            <i class="fi fi-rr-moon" id="sheet-theme-icon"></i>
+          </div>
+          <div class="sheet-item-text">
+            <strong>Alternar Tema Visual</strong>
+            <small>Modo Noturno / Claro</small>
+          </div>
+        </button>
+        <button class="sheet-item sheet-item-highlight btn-install-pwa" id="sheet-btn-install">
+          <div class="sheet-icon-wrap gold">
+            <i class="fi fi-rr-mobile-button"></i>
+          </div>
+          <div class="sheet-item-text">
+            <strong>Instalar Aplicativo (PWA)</strong>
+            <small>Acesso rápido na tela inicial do celular</small>
+          </div>
+          <span class="sheet-badge">Instalar</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MODAL GUIA DE INSTALAÇÃO NO IOS (IPHONE / IPAD) -->
+    <div class="modal-overlay" id="modal-ios-install">
+      <div class="modal-dialog ios-guide-dialog">
+        <div class="modal-header">
+          <h3><i class="fi fi-rr-mobile-button text-gold"></i> Instalar no iPhone ou iPad</h3>
+          <button class="btn-modal-close" id="btn-close-ios-install">
+            <i class="fi fi-rr-cross"></i>
+          </button>
+        </div>
+        <div class="modal-body ios-guide-body">
+          <div class="ios-app-preview">
+            <img src="/icons/icon-192.png" alt="Market Intel" class="ios-preview-icon">
+            <div class="ios-preview-info">
+              <strong>Market Intelligence</strong>
+              <span>Cooxupé • Web App Oficial</span>
+            </div>
+          </div>
+          <p class="ios-guide-intro">
+            Para instalar esta aplicação no seu dispositivo Apple sem precisar da App Store, siga os 3 passos rápidos:
+          </p>
+          <div class="ios-step-list">
+            <div class="ios-step-item">
+              <div class="ios-step-num">1</div>
+              <div class="ios-step-content">
+                <strong>Toque no botão Compartilhar</strong>
+                <p>Na barra inferior do Safari, toque no ícone <i class="fi fi-rr-share-square"></i> (quadrado com seta apontando para cima).</p>
+              </div>
+            </div>
+            <div class="ios-step-item">
+              <div class="ios-step-num">2</div>
+              <div class="ios-step-content">
+                <strong>Selecione "Adicionar à Tela de Início"</strong>
+                <p>Role a lista de ações para baixo até encontrar <i class="fi fi-rr-plus-square"></i> <strong>Adicionar à Tela de Início</strong>.</p>
+              </div>
+            </div>
+            <div class="ios-step-item">
+              <div class="ios-step-num">3</div>
+              <div class="ios-step-content">
+                <strong>Confirme em "Adicionar"</strong>
+                <p>No canto superior direito, toque em <strong>Adicionar</strong>. O ícone oficial estará disponível como um aplicativo nativo!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-primary" id="btn-understood-ios-install">Entendi, vou instalar</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- SCRIPT PRINCIPAL TYPESCRIPT (Vite Module) -->

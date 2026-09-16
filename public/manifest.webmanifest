@@ -1,0 +1,62 @@
+{
+  "name": "Market Intelligence - Inteligência de Mercado Cooxupé",
+  "short_name": "Market Intel",
+  "description": "Painel executivo de monitoramento competitivo de insumos agrícolas, cotações de mercado e inteligência estratégica.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0B132B",
+  "theme_color": "#1E5E3A",
+  "lang": "pt-BR",
+  "categories": ["business", "finance", "productivity"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Cockpit Geral",
+      "short_name": "Cockpit",
+      "description": "Visão executiva de mercado e indicadores",
+      "url": "./#cockpit",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Dossiê Concorrentes",
+      "short_name": "Dossiê",
+      "description": "Histórico e estratégias de concorrentes",
+      "url": "./#dossie",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Simulador Barter",
+      "short_name": "Barter",
+      "description": "Simulador de relação de troca de café e insumos",
+      "url": "./#barter",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

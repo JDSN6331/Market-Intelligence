@@ -59,11 +59,28 @@ function formatBags(val: number): string {
 }
 
 // ==========================================================================
+// REGISTRO DE SERVICE WORKER (PWA OFFLINE & APP INSTALL)
+// ==========================================================================
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => {
+        console.log('[PWA] Service Worker registrado com sucesso. Escopo:', reg.scope);
+      })
+      .catch(err => {
+        console.warn('[PWA] Falha no registro do Service Worker:', err);
+      });
+  });
+}
+
+// ==========================================================================
 // INICIALIZAÇÃO
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
   setupTheme();
   setupNavigationTabs();
+  setupMobileNavigation();
+  setupPwaInstall();
   renderStrategicKpis();
   renderCockpitOverview();
   renderCompetitorsDossier();
@@ -83,59 +100,219 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==========================================================================
 // GERENCIAMENTO DE TEMA (CLARO / NOTURNO — PADRÃO NOTURNO)
 // ==========================================================================
+function updateThemeIcons(): void {
+  const themeIcon = document.getElementById('theme-icon');
+  const sheetThemeIcon = document.getElementById('sheet-theme-icon');
+  const iconClass = state.isDarkMode ? 'fi fi-rr-moon' : 'fi fi-rr-sun';
+  if (themeIcon) themeIcon.className = iconClass;
+  if (sheetThemeIcon) sheetThemeIcon.className = iconClass;
+}
+
 function setupTheme(): void {
   const btnTheme = document.getElementById('btn-theme-toggle');
-  const themeIcon = document.getElementById('theme-icon');
 
   if (state.isDarkMode) {
     document.body.classList.add('dark-mode');
-    if (themeIcon) {
-      themeIcon.className = 'fi fi-rr-moon';
-    }
   } else {
     document.body.classList.remove('dark-mode');
-    if (themeIcon) {
-      themeIcon.className = 'fi fi-rr-sun';
-    }
   }
+  updateThemeIcons();
 
   btnTheme?.addEventListener('click', () => {
     state.isDarkMode = !state.isDarkMode;
     document.body.classList.toggle('dark-mode', state.isDarkMode);
     localStorage.setItem('cooxupe_theme', state.isDarkMode ? 'dark' : 'light');
-    if (themeIcon) {
-      themeIcon.className = state.isDarkMode ? 'fi fi-rr-moon' : 'fi fi-rr-sun';
-    }
+    updateThemeIcons();
   });
 }
 
 // ==========================================================================
-// NAVEGAÇÃO ENTRE ABAS
+// NAVEGAÇÃO UNIFICADA ENTRE ABAS (DESKTOP & MOBILE)
 // ==========================================================================
+function switchTab(targetTabId: string): void {
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.nav-tab');
+  const mobileNavItems = document.querySelectorAll<HTMLElement>('.mobile-nav-item');
+  const panes = document.querySelectorAll<HTMLElement>('.tab-pane');
+
+  tabs.forEach(t => {
+    if (t.dataset.tab === targetTabId) {
+      t.classList.add('active');
+    } else {
+      t.classList.remove('active');
+    }
+  });
+
+  mobileNavItems.forEach(m => {
+    if (m.dataset.tab === targetTabId) {
+      m.classList.add('active');
+    } else if (m.dataset.tab) {
+      m.classList.remove('active');
+    }
+  });
+
+  panes.forEach(p => p.classList.remove('active'));
+  const targetPane = document.getElementById(`tab-${targetTabId}`);
+  if (targetPane) {
+    targetPane.classList.add('active');
+  }
+
+  if (window.innerWidth <= 768) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
 function setupNavigationTabs(): void {
   const tabs = document.querySelectorAll<HTMLButtonElement>('.nav-tab');
-  const panes = document.querySelectorAll<HTMLElement>('.tab-pane');
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const targetTabId = tab.dataset.tab;
-      if (!targetTabId) return;
-
-      tabs.forEach(t => t.classList.remove('active'));
-      panes.forEach(p => p.classList.remove('active'));
-
-      tab.classList.add('active');
-      const targetPane = document.getElementById(`tab-${targetTabId}`);
-      if (targetPane) {
-        targetPane.classList.add('active');
+      if (targetTabId) {
+        switchTab(targetTabId);
       }
     });
   });
 
   const btnAlertAction = document.getElementById('btn-view-alert-action');
   btnAlertAction?.addEventListener('click', () => {
-    const swotTab = document.querySelector<HTMLButtonElement>('.nav-tab[data-tab="swot"]');
-    swotTab?.click();
+    switchTab('swot');
+  });
+}
+
+// ==========================================================================
+// NAVEGAÇÃO MOBILE (BOTTOM NAV & SHEET "MAIS")
+// ==========================================================================
+function setupMobileNavigation(): void {
+  const mobileNavItems = document.querySelectorAll<HTMLElement>('.mobile-nav-item[data-tab]');
+  const btnMoreTrigger = document.getElementById('btn-mobile-more-trigger');
+  const sheet = document.getElementById('mobile-bottom-sheet');
+  const overlay = document.getElementById('mobile-sheet-overlay');
+  const btnCloseSheet = document.getElementById('btn-close-mobile-sheet');
+  const sheetItems = document.querySelectorAll<HTMLElement>('.sheet-item[data-tab]');
+  const sheetBtnSync = document.getElementById('sheet-btn-sync');
+  const sheetBtnTheme = document.getElementById('sheet-btn-theme');
+
+  mobileNavItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const tabId = item.dataset.tab;
+      if (tabId) {
+        switchTab(tabId);
+        closeMobileSheet();
+      }
+    });
+  });
+
+  function openMobileSheet(): void {
+    sheet?.classList.add('active');
+    overlay?.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileSheet(): void {
+    sheet?.classList.remove('active');
+    overlay?.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  btnMoreTrigger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openMobileSheet();
+  });
+
+  overlay?.addEventListener('click', () => {
+    closeMobileSheet();
+  });
+
+  btnCloseSheet?.addEventListener('click', () => {
+    closeMobileSheet();
+  });
+
+  sheetItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const tabId = item.dataset.tab;
+      if (tabId) {
+        switchTab(tabId);
+        closeMobileSheet();
+      }
+    });
+  });
+
+  sheetBtnSync?.addEventListener('click', () => {
+    closeMobileSheet();
+    const modalSync = document.getElementById('modal-sync-data');
+    if (modalSync) modalSync.classList.add('active');
+  });
+
+  sheetBtnTheme?.addEventListener('click', () => {
+    const btnTheme = document.getElementById('btn-theme-toggle');
+    btnTheme?.click();
+  });
+}
+
+// ==========================================================================
+// INSTALAÇÃO DO PWA (ANDROID, IOS, DESKTOP)
+// ==========================================================================
+let deferredPrompt: any = null;
+
+function setupPwaInstall(): void {
+  const installButtons = document.querySelectorAll<HTMLElement>('.btn-install-pwa');
+  const iosModal = document.getElementById('modal-ios-install');
+  const btnCloseIos = document.getElementById('btn-close-ios-install');
+  const btnUnderstood = document.getElementById('btn-understood-ios-install');
+
+  const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone === true;
+
+  if (isStandalone) {
+    installButtons.forEach(btn => {
+      btn.style.display = 'none';
+    });
+    return;
+  }
+
+  // Ativa os botões de instalação
+  installButtons.forEach(btn => {
+    btn.style.display = 'inline-flex';
+  });
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installButtons.forEach(btn => {
+      btn.style.display = 'inline-flex';
+    });
+  });
+
+  window.addEventListener('appinstalled', () => {
+    installButtons.forEach(btn => {
+      btn.style.display = 'none';
+    });
+    deferredPrompt = null;
+  });
+
+  installButtons.forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          installButtons.forEach(b => b.style.display = 'none');
+        }
+        deferredPrompt = null;
+      } else if (isIos) {
+        iosModal?.classList.add('active');
+      } else {
+        alert('Para instalar o app Market Intelligence no seu aparelho:\n\n• No Chrome/Edge (Android/PC): Clique nos 3 pontinhos (⋮) e em "Instalar aplicativo" ou "Adicionar à tela inicial".\n• No Safari (iPhone/iPad): Toque no botão Compartilhar e selecione "Adicionar à Tela de Início".');
+      }
+    });
+  });
+
+  const closeIos = () => iosModal?.classList.remove('active');
+  btnCloseIos?.addEventListener('click', closeIos);
+  btnUnderstood?.addEventListener('click', closeIos);
+  iosModal?.addEventListener('click', (e) => {
+    if (e.target === iosModal) closeIos();
   });
 }
 
