@@ -3426,6 +3426,174 @@ body.dark-mode .dossier-hq-badge {
   border-color: rgba(255, 255, 255, 0.06);
 }
 
+/* Banner Fotográfico do Concorrente */
+.dossier-card-media {
+  position: relative;
+  width: calc(100% + 48px);
+  margin: -24px -24px 14px -24px;
+  height: 200px;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.dossier-media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dossier-card:hover .dossier-media-img {
+  transform: scale(1.05);
+}
+
+.dossier-media-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.65) 100%);
+  pointer-events: none;
+}
+
+.dossier-media-type-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+}
+
+/* Badge especial para clusters de empresas */
+.dossier-year-badge.cluster-badge {
+  background: rgba(124, 58, 237, 0.12);
+  color: #7C3AED;
+  border-color: rgba(124, 58, 237, 0.3);
+  font-weight: 700;
+}
+
+body.dark-mode .dossier-year-badge.cluster-badge {
+  background: rgba(139, 92, 246, 0.18);
+  color: #C4B5FD;
+  border-color: rgba(139, 92, 246, 0.35);
+}
+
+/* Bloco de Detalhamento das Empresas do Polo (Cluster) */
+.dossier-cluster-block {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(124, 58, 237, 0.04);
+  border: 1px solid rgba(124, 58, 237, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+body.dark-mode .dossier-cluster-block {
+  background: rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.22);
+}
+
+.cluster-block-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #7C3AED;
+}
+
+body.dark-mode .cluster-block-header {
+  color: #C4B5FD;
+}
+
+.cluster-block-header h4 {
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.cluster-members-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.cluster-member-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+body.dark-mode .cluster-member-card {
+  background: rgba(30, 41, 59, 0.6);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.member-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.member-name {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.member-flag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-secondary);
+}
+
+body.dark-mode .member-flag {
+  background: rgba(255, 255, 255, 0.08);
+  color: #E2E8F0;
+}
+
+.member-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+}
+
+.member-year i,
+.member-hq i {
+  font-size: 0.72rem;
+  margin-right: 3px;
+}
+
+.member-specialty {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-style: italic;
+}
+
 /* Pilares do Modelo de Negócio */
 .dossier-pillars-container {
   display: flex;

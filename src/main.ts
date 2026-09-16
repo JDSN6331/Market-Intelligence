@@ -303,6 +303,17 @@ function renderCompetitorsDossier(filter: string = currentDossierFilter): void {
 
     return `
       <div class="dossier-card ${isCooxupe ? 'is-cooxupe' : ''}" style="--comp-brand: ${comp.badgeColor};">
+        <!-- FOTO ILUSTRATIVA DA OPERAÇÃO / SEDE / PARQUE -->
+        ${comp.imageUrl ? `
+          <div class="dossier-card-media">
+            <img src="${comp.imageUrl}" alt="${comp.name}" class="dossier-media-img" loading="lazy" />
+            <div class="dossier-media-gradient"></div>
+            <span class="dossier-media-type-badge ${typeInfo.cssClass}">
+              <i class="${typeInfo.icon}"></i> ${typeInfo.label}
+            </span>
+          </div>
+        ` : ''}
+
         <!-- TOPO DO CARD: IDENTIFICAÇÃO E BADGES -->
         <div class="dossier-card-header">
           <div class="dossier-title-row">
@@ -317,7 +328,11 @@ function renderCompetitorsDossier(filter: string = currentDossierFilter): void {
             </div>
           </div>
           <div class="dossier-meta-badges">
-            ${comp.foundationYear ? `
+            ${comp.isCluster && comp.clusterMembers ? `
+              <span class="dossier-year-badge cluster-badge" title="Grupo com múltiplas empresas e datas de fundação">
+                <i class="fi fi-rr-apps"></i> Polo de ${comp.clusterMembers.length} Redes Especializadas
+              </span>
+            ` : comp.foundationYear ? `
               <span class="dossier-year-badge">
                 <i class="fi fi-rr-calendar"></i> Fundada em ${comp.foundationYear} ${age ? `(${age} anos)` : ''}
               </span>
@@ -325,6 +340,33 @@ function renderCompetitorsDossier(filter: string = currentDossierFilter): void {
             <span class="dossier-hq-badge"><i class="fi fi-rr-marker"></i> ${comp.headquarters}</span>
           </div>
         </div>
+
+        <!-- DETALHAMENTO DE EMPRESAS DO POLO & FUNDAÇÃO INDIVIDUAL (QUANDO FOR CLUSTER) -->
+        ${comp.isCluster && comp.clusterMembers && comp.clusterMembers.length > 0 ? `
+          <div class="dossier-cluster-block">
+            <div class="cluster-block-header">
+              <i class="fi fi-rr-network"></i>
+              <h4>Empresas do Polo & Origem Individual de Cada Marca</h4>
+            </div>
+            <div class="cluster-members-grid">
+              ${comp.clusterMembers.map(member => `
+                <div class="cluster-member-card">
+                  <div class="member-top">
+                    <strong class="member-name">${member.name}</strong>
+                    <span class="member-flag">${member.brandOrFlag}</span>
+                  </div>
+                  <div class="member-meta">
+                    <span class="member-year"><i class="fi fi-rr-calendar"></i> Fundada em ${member.foundationYear}</span>
+                    <span class="member-hq"><i class="fi fi-rr-marker"></i> ${member.headquarters}</span>
+                  </div>
+                  <div class="member-specialty">
+                    <i class="fi fi-rr-angle-small-right"></i> ${member.specialty}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
 
         <!-- PILARES DO MODELO DE NEGÓCIO -->
         ${comp.businessModelPillars && comp.businessModelPillars.length > 0 ? `

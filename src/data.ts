@@ -121,6 +121,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     primaryBrands: ['Agritech', 'Jacto', 'Yara', 'Bayer', 'Syngenta', 'Netafim', 'UPL'],
     badgeColor: '#1E5E3A',
+    imageUrl: '/images/competitors/cooxupe.jpg',
     summary: 'Líder absoluta no mercado cafeeiro regional. Referência em modelo de barter seguro, qualidade e fidelização cooperada.',
     sourceInfo: {
       sourceName: 'Relatório Anual de Gestão e Sustentabilidade Cooxupé 2025/2026',
@@ -157,6 +158,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     primaryBrands: ['Fertipar', 'Basf', 'Corteva', 'LS Tractor', 'Jacto', 'Rivulis'],
     badgeColor: '#C28E42',
+    imageUrl: '/images/competitors/cocatrel.jpg',
     summary: 'Concorrente direta mais próxima geograficamente no Sul de Minas. Muito combativa em preços de fertilizantes misturados.',
     sourceInfo: {
       sourceName: 'Tabela de Balcão e Encartes Comerciais da Loja Agro Cocatrel',
@@ -191,6 +193,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     primaryBrands: ['EuroChem', 'FMC', 'UPL', 'Agritech', 'Stara', 'Netafim'],
     badgeColor: '#2563EB',
+    imageUrl: '/images/competitors/minasul.jpg',
     summary: 'Foco em digitalização e flexibilidade comercial. Ganha espaço onde produtores buscam transações rápidas sem burocracia.',
     sourceInfo: {
       sourceName: 'Catálogo de Ofertas Aplicativo Minasul Digital + Balcão Varginha',
@@ -225,7 +228,8 @@ export const COMPETITORS: Competitor[] = [
     ],
     primaryBrands: ['Valtra', 'Jacto', 'Netafim', 'Yara', 'Bayer', 'Bauer'],
     badgeColor: '#059669',
-    summary: 'Principal rival em tecnologia de irrigação e máquinas de alta potência. Muito agressiva em projetos completos de fazendas.',
+    imageUrl: '/images/competitors/coopercitrus.jpg',
+    summary: 'Gigante cooperativa agropecuária com forte musculatura em maquinário pesado e projetos de irrigação chave na mão.',
     sourceInfo: {
       sourceName: 'Tabela de Concessionária Oficial Valtra/Jacto Coopercitrus',
       collectionMethod: 'Orçamentos formais emitidos pela concessionária do concorrente',
@@ -259,6 +263,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     primaryBrands: ['Koppert', 'Nutrien', 'Lindsay', 'Netafim', 'Case IH'],
     badgeColor: '#D97706',
+    imageUrl: '/images/competitors/expocacer.jpg',
     summary: 'Líder em prestígio no Cerrado. Concorre diretamente nos núcleos da Cooxupé em Patrocínio, Coromandel e Monte Carmelo.',
     sourceInfo: {
       sourceName: 'Boletim de Insumos e Encartes Técnicos da Expocacer',
@@ -293,6 +298,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     primaryBrands: ['Syngenta', 'Corteva', 'Mosaic', 'Fertipar', 'Albaugh'],
     badgeColor: '#DC2626',
+    imageUrl: '/images/competitors/lavoro_agro.jpg',
     summary: 'Maior consolidadora privada de revendas. Pressiona margens de defensivos da Cooxupé com campanhas de crédito flexível.',
     sourceInfo: {
       sourceName: 'Tabela de Campanha Early Order e Minutas de CPR Lavoro Agro',
@@ -327,6 +333,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     primaryBrands: ['John Deere', 'Case IH', 'New Holland', 'Valtra', 'Agritech'],
     badgeColor: '#7C3AED',
+    imageUrl: '/images/competitors/concessionarias_maquinas.jpg',
     summary: 'Disputam o cooperado na aquisição de tratores e colhedoras onde o produtor prefere financiamento bancário a barter.',
     sourceInfo: {
       sourceName: 'Tabela Faturada Concessionárias (Treviso John Deere, Curinga Case, Minas Máquinas)',
@@ -335,8 +342,31 @@ export const COMPETITORS: Competitor[] = [
       collectionDate: '11/09/2026',
       auditLevel: 'Proposta Comercial Concorrente'
     },
-    foundationYear: 1985,
-    historyOverview: 'Redes de concessionárias autorizadas das maiores montadoras mundiais de maquinário agrícola (Treviso John Deere, Curinga Case IH, Minas Máquinas), com centros de distribuição de peças e oficinas estruturadas nas cidades-polo de MG e SP.',
+    isCluster: true,
+    clusterMembers: [
+      {
+        name: 'Treviso Máquinas',
+        brandOrFlag: 'John Deere',
+        foundationYear: 1985,
+        headquarters: 'Varginha, Pouso Alegre e Alfenas - MG',
+        specialty: 'Tratores estreitos cafeeiros 5075E e pacotes de telemetria'
+      },
+      {
+        name: 'Curinga dos Tratores',
+        brandOrFlag: 'Case IH',
+        foundationYear: 1981,
+        headquarters: 'Pouso Alegre, Varginha e Passos - MG',
+        specialty: 'Tratores Quantum cafeeiros e linhas de colhedoras'
+      },
+      {
+        name: 'Minas Máquinas',
+        brandOrFlag: 'Valtra',
+        foundationYear: 1989,
+        headquarters: 'Ribeirão Preto - SP e Sul de MG',
+        specialty: 'Tratores série A e implementos cafeeiros'
+      }
+    ],
+    historyOverview: 'Polo formado pelas principais redes de concessionárias autorizadas das maiores montadoras mundiais de maquinário agrícola no Sul de Minas e Mogiana (Treviso John Deere fundada em 1985, Curinga Case IH em 1981 e Minas Máquinas Valtra em 1989), contando com modernos centros de distribuição de peças e oficinas estruturadas.',
     modusOperandi: 'Venda de pacotes de tecnologia, telemetria e conectividade. Oferecem tratores cafeeiros estreitos com piloto automático de fábrica e financiamentos subsidiados via bancos de montadora (Banco DLL, Banco John Deere, CNH Capital) com juros pré-fixados.',
     targetAudience: 'Grandes frotistas e cafeicultores empresariais de topografia plana e mecanizável que buscam automação, telemetria de consumo de diesel e padronização de frota com tratores cabinados.',
     keyThreat: 'Oferta de tratores cabinados com taxas de juros de 7,5% a 8,5% a.a. sem necessidade de relacionamento cooperativo ou entrega física de café.',
@@ -361,6 +391,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     primaryBrands: ['Netafim', 'Rivulis', 'NaanDanJain', 'Lindsay Zimmatic', 'Valmont'],
     badgeColor: '#0891B2',
+    imageUrl: '/images/competitors/players_irrigacao.jpg',
     summary: 'Parceiros e ao mesmo tempo concorrentes via canais diretos de venda aos grandes cafeicultores irrigantes.',
     sourceInfo: {
       sourceName: 'Projetos Executivos e Orçamentos de Engenharia Hidráulica Chave na Mão',
@@ -369,8 +400,31 @@ export const COMPETITORS: Competitor[] = [
       collectionDate: '13/09/2026',
       auditLevel: 'Oficial Concorrente'
     },
-    foundationYear: 1965,
-    historyOverview: 'Empresas pioneiras globais em irrigação localizada por gotejamento e pivôs, com engenharia instalada em polos do interior paulista e mineiro. São responsáveis pela introdução das mangueiras gotejadoras autocompensantes e de longa vida útil na cafeicultura.',
+    isCluster: true,
+    clusterMembers: [
+      {
+        name: 'Netafim Brasil',
+        brandOrFlag: 'Netafim / Orbia',
+        foundationYear: 1965,
+        headquarters: 'Ribeirão Preto - SP (Origem: Kibbutz Hatzerim, Israel)',
+        specialty: 'Pioneira mundial em gotejamento de precisão e mangueiras autocompensantes'
+      },
+      {
+        name: 'Rivulis Irrigation',
+        brandOrFlag: 'Rivulis / Eurodrip',
+        foundationYear: 1966,
+        headquarters: 'Campinas - SP (Origem: Gvat, Israel)',
+        specialty: 'Gotejamento integrado, automação hidráulica e microaspersão'
+      },
+      {
+        name: 'Lindsay Brasil',
+        brandOrFlag: 'Lindsay Zimmatic',
+        foundationYear: 1955,
+        headquarters: 'Mogi Mirim - SP (Origem: Nebraska, EUA)',
+        specialty: 'Sistemas de pivô central e telemetria FieldNET para cafezais'
+      }
+    ],
+    historyOverview: 'Polo formado pelas multinacionais pioneiras globais em irrigação localizada e pivôs presentes no cinturão cafeeiro de MG e SP: Netafim (fundada em 1965), Rivulis (fundada em 1966) e Lindsay Zimmatic (fundada em 1955). São responsáveis pela introdução das mangueiras gotejadoras autocompensantes de longa vida útil e fertirrigação automatizada na cafeicultura.',
     modusOperandi: 'Venda técnica direta de engenharia hidráulica "chave na mão" (turn-key). Elaboram projetos executivos 3D, cálculos de bombeamento e dimensionamento de fertirrigação com assistência técnica pós-venda para calibração de lâminas d água.',
     targetAudience: 'Cafeicultores do Cerrado Mineiro e Mogiana Paulista com foco em alta produtividade (60 a 90 sc/ha) e produtores de áreas de montanha no Sul de Minas que necessitam de irrigação de salvamento contra veranicos.',
     keyThreat: 'Abordagem direta de equipes de venda das fábricas aos grandes associados Cooxupé com descontos de volume, contornando a intermediação da cooperativa.',

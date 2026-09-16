@@ -51,6 +51,14 @@ export interface StrategicKpi {
   updateFrequency: string;     // Frequência de atualização
 }
 
+export interface CompetitorClusterMember {
+  name: string;
+  brandOrFlag: string;
+  foundationYear: number;
+  headquarters: string;
+  specialty: string;
+}
+
 export interface Competitor {
   id: string;
   name: string;
@@ -68,8 +76,11 @@ export interface Competitor {
   badgeColor: string;
   summary: string;
   sourceInfo: DataSourceInfo;
+  imageUrl?: string;
   // Campos do Dossiê Estratégico
   foundationYear?: number;
+  isCluster?: boolean;
+  clusterMembers?: CompetitorClusterMember[];
   historyOverview?: string;
   modusOperandi?: string;
   targetAudience?: string;
