@@ -20,10 +20,21 @@ interface AppState {
   searchQuery: string;
   selectedProductModal: ProductItem | null;
   isDarkMode: boolean;
+  userCooxupePrices: Record<string, number>;
 }
 
 const savedCoffee = localStorage.getItem('cooxupe_coffee_price');
 const savedTheme = localStorage.getItem('cooxupe_theme');
+const savedUserPrices = localStorage.getItem('cooxupe_user_prices');
+
+let parsedUserPrices: Record<string, number> = {};
+try {
+  if (savedUserPrices) {
+    parsedUserPrices = JSON.parse(savedUserPrices);
+  }
+} catch (e) {
+  parsedUserPrices = {};
+}
 
 const state: AppState = {
   currentCoffeePrice: savedCoffee ? parseFloat(savedCoffee) : COFFEE_PRICE_DEFAULT,
@@ -32,7 +43,8 @@ const state: AppState = {
   searchQuery: '',
   selectedProductModal: null,
   // Padrão Executivo: TEMA NOTURNO (dark), a menos que o usuário tenha escolhido explicitamente 'light'
-  isDarkMode: savedTheme !== 'light'
+  isDarkMode: savedTheme !== 'light',
+  userCooxupePrices: parsedUserPrices
 };
 
 // ==========================================================================
@@ -424,60 +436,179 @@ function setupBarterSimulator(): void {
   renderPricesTable();
 }
 
+interface BarterHighlightItem {
+  id: string;
+  title: string;
+  category: string;
+  competitorPrice: number;
+  competitorName: string;
+  unit: string;
+  sourceNote: string;
+  suggestedExample: number;
+}
+
+const BARTER_ITEMS: BarterHighlightItem[] = [
+  {
+    id: 'adubo-npk',
+    title: '1 Tonelada Adubo NPK 20-00-20',
+    category: 'Insumos / Fertilizantes',
+    competitorPrice: 2780,
+    competitorName: 'Cocatrel',
+    unit: 'tonelada',
+    sourceNote: 'Cotação de Balcão na Loja Agro Cocatrel Três Pontas (14/09/2026)',
+    suggestedExample: 2710
+  },
+  {
+    id: 'irrigacao-gotejo',
+    title: '1 Hectare Gotejamento Cafeeiro',
+    category: 'Irrigação / Netafim',
+    competitorPrice: 18500,
+    competitorName: 'Integradores Diretos',
+    unit: 'hectare',
+    sourceNote: 'Proposta Direta Netafim Brasil Projeto 45 ha Cerrado (12/09/2026)',
+    suggestedExample: 17900
+  },
+  {
+    id: 'trator-75cv',
+    title: 'Trator Cafeeiro 75 cv (Agritech vs LS)',
+    category: 'Maquinário / Trator Estreito',
+    competitorPrice: 219000,
+    competitorName: 'LS Tractor (Cocatrel)',
+    unit: 'unidade',
+    sourceNote: 'Tabela Comercial Concessionária LS Cocatrel (07/09/2026)',
+    suggestedExample: 195000
+  },
+  {
+    id: 'colhedora-jacto',
+    title: 'Colhedora Cafeeira Jacto KTR 3500',
+    category: 'Maquinário / Colheita',
+    competitorPrice: 420000,
+    competitorName: 'Concessionária Direta',
+    unit: 'unidade',
+    sourceNote: 'Orçamento da Concessionária Autorizada Jacto Varginha (10/09/2026)',
+    suggestedExample: 414000
+  }
+];
+
+function buildBarterBadgeHtml(item: BarterHighlightItem, userPrice: number | undefined, coffeePrice: number): string {
+  const hasUserPrice = typeof userPrice === 'number' && userPrice > 0;
+  if (!hasUserPrice) {
+    return `
+      <div class="barter-argument-badge waiting">
+        <i class="fi fi-rr-edit"></i>
+        <div>
+          <strong>Digite o Preço Cooxupé:</strong>
+          Informe no campo acima o valor praticado no seu núcleo (ou clique em <button type="button" class="btn-quick-sample" data-item-id="${item.id}" data-sample="${item.suggestedExample}">exemplo: R$ ${item.suggestedExample.toLocaleString('pt-BR')}</button>) para calcular a economia em sacas.
+        </div>
+      </div>
+    `;
+  }
+
+  const scCompetitor = item.competitorPrice / coffeePrice;
+  const scCooxupe = userPrice / coffeePrice;
+  const diffSc = scCompetitor - scCooxupe;
+  const diffReais = item.competitorPrice - userPrice;
+  const isCooxupeCheaper = diffSc > 0.005;
+  const isIdentical = Math.abs(diffSc) <= 0.005;
+
+  if (isIdentical) {
+    return `
+      <div class="barter-argument-badge neutral">
+        <i class="fi fi-rr-check"></i>
+        <div>
+          <strong>Paridade Equivalente:</strong>
+          Mesma exigência em café (${formatBags(scCooxupe)}). Vendedor/CTC deve explorar sobras cooperativas e segurança de armazenagem.
+        </div>
+      </div>
+    `;
+  } else if (isCooxupeCheaper) {
+    return `
+      <div class="barter-argument-badge advantage">
+        <i class="fi fi-rr-check-circle"></i>
+        <div>
+          <strong>Vantagem Cooxupé para o Vendedor/CTC:</strong>
+          O cooperado economiza <strong>${formatBags(diffSc)}</strong> (${formatCurrency(diffReais)}) comprando na Cooxupé!
+        </div>
+      </div>
+    `;
+  } else {
+    return `
+      <div class="barter-argument-badge alert">
+        <i class="fi fi-rr-info"></i>
+        <div>
+          <strong>Atenção Comercial:</strong>
+          Mercado cotando <strong>${formatBags(Math.abs(diffSc))}</strong> a menos (${formatCurrency(Math.abs(diffReais))}). Vendedor/CTC deve contra-atacar com sobras anuais (3% a 5%) e frete CIF.
+        </div>
+      </div>
+    `;
+  }
+}
+
+function updateSingleBarterCard(itemId: string): void {
+  const card = document.querySelector(`.barter-stat-card[data-item-id="${itemId}"]`);
+  if (!card) return;
+
+  const item = BARTER_ITEMS.find(i => i.id === itemId);
+  if (!item) return;
+
+  const coffeePrice = state.currentCoffeePrice;
+  const userPrice = state.userCooxupePrices[itemId];
+  const hasUserPrice = typeof userPrice === 'number' && userPrice > 0;
+
+  const scValEl = card.querySelector('.cooxupe-sc-val');
+  const subValEl = card.querySelector('.cooxupe-sub-val');
+  const badgeContainer = card.querySelector('.barter-badge-container');
+
+  if (scValEl) {
+    if (hasUserPrice) {
+      scValEl.textContent = formatBags(userPrice / coffeePrice);
+      scValEl.classList.remove('text-muted');
+      scValEl.classList.add('text-green');
+    } else {
+      scValEl.textContent = '-- sc';
+      scValEl.classList.remove('text-green');
+      scValEl.classList.add('text-muted');
+    }
+  }
+
+  if (subValEl) {
+    subValEl.textContent = hasUserPrice ? 'necessárias na Cooxupé' : 'digite o preço da Cooxupé';
+  }
+
+  if (badgeContainer) {
+    badgeContainer.innerHTML = buildBarterBadgeHtml(item, userPrice, coffeePrice);
+
+    // Reanexa listener caso o botão de exemplo tenha sido renderizado
+    const sampleBtn = badgeContainer.querySelector<HTMLButtonElement>('.btn-quick-sample');
+    sampleBtn?.addEventListener('click', () => {
+      const sampleVal = parseFloat(sampleBtn.dataset.sample || '0');
+      if (sampleVal > 0) {
+        state.userCooxupePrices[itemId] = sampleVal;
+        try {
+          localStorage.setItem('cooxupe_user_prices', JSON.stringify(state.userCooxupePrices));
+        } catch (e) {}
+        const inputEl = card.querySelector<HTMLInputElement>(`#input-price-${itemId}`);
+        if (inputEl) inputEl.value = sampleVal.toString();
+        updateSingleBarterCard(itemId);
+      }
+    });
+  }
+}
+
 function renderBarterHighlights(): void {
   const container = document.getElementById('barter-highlights-cards');
   if (!container) return;
 
   const coffeePrice = state.currentCoffeePrice;
 
-  const items = [
-    {
-      title: '1 Tonelada Adubo NPK 20-00-20',
-      category: 'Insumos / Fertilizantes',
-      cooxupePrice: 2710,
-      competitorPrice: 2780,
-      competitorName: 'Cocatrel',
-      unit: 'tonelada',
-      sourceNote: 'Cotação de Balcão na Loja Agro Cocatrel Três Pontas (14/09/2026)'
-    },
-    {
-      title: '1 Hectare Gotejamento Cafeeiro',
-      category: 'Irrigação / Netafim',
-      cooxupePrice: 17900,
-      competitorPrice: 18500,
-      competitorName: 'Integradores Diretos',
-      unit: 'hectare',
-      sourceNote: 'Proposta Direta Netafim Brasil Projeto 45 ha Cerrado (12/09/2026)'
-    },
-    {
-      title: 'Trator Cafeeiro 75 cv (Agritech 1175)',
-      category: 'Maquinário / Trator Estreito',
-      cooxupePrice: 195000,
-      competitorPrice: 219000,
-      competitorName: 'LS Tractor (Cocatrel)',
-      unit: 'unidade',
-      sourceNote: 'Tabela Comercial Concessionária LS Cocatrel (07/09/2026)'
-    },
-    {
-      title: 'Colhedora Cafeeira Jacto KTR 3500',
-      category: 'Maquinário / Colheita',
-      cooxupePrice: 414000,
-      competitorPrice: 420000,
-      competitorName: 'Concessionária Direta',
-      unit: 'unidade',
-      sourceNote: 'Orçamento da Concessionária Autorizada Jacto Varginha (10/09/2026)'
-    }
-  ];
-
-  container.innerHTML = items.map(item => {
-    const scCooxupe = item.cooxupePrice / coffeePrice;
+  container.innerHTML = BARTER_ITEMS.map(item => {
     const scCompetitor = item.competitorPrice / coffeePrice;
-    const diffSc = scCompetitor - scCooxupe;
-    const diffReais = item.competitorPrice - item.cooxupePrice;
-    const isCooxupeCheaper = diffSc > 0;
+    const userPrice = state.userCooxupePrices[item.id];
+    const hasUserPrice = typeof userPrice === 'number' && userPrice > 0;
+    const scCooxupe = hasUserPrice ? userPrice / coffeePrice : null;
 
     return `
-      <div class="barter-stat-card">
+      <div class="barter-stat-card" data-item-id="${item.id}">
         <div class="barter-card-header">
           <span class="barter-card-cat"><i class="fi fi-rr-tag"></i> ${item.category}</span>
           <div class="barter-card-title">${item.title}</div>
@@ -496,28 +627,37 @@ function renderBarterHighlights(): void {
             <span class="barter-side-sub">exigidas pelo concorrente</span>
           </div>
 
-          <!-- OFERTA COOXUPÉ (O QUE A COOPERATIVA OFERECE) -->
+          <!-- OFERTA COOXUPÉ (CAMPO EDITÁVEL PARA O VENDEDOR/CTC) -->
           <div class="barter-side cooxupe">
             <div class="barter-side-label">
               <i class="fi fi-rr-shield-check"></i> Condição Cooxupé
             </div>
-            <div class="barter-side-price">${formatCurrency(item.cooxupePrice)} / ${item.unit}</div>
-            <div class="barter-side-sc text-green" title="Sacas necessárias na Cooxupé">
-              ${formatBags(scCooxupe)}
+            <div class="cooxupe-input-box">
+              <label for="input-price-${item.id}">Preço no Núcleo (${item.unit}):</label>
+              <div class="input-inline-flex">
+                <span class="currency-prefix-sm">R$</span>
+                <input 
+                  type="number" 
+                  id="input-price-${item.id}" 
+                  class="cooxupe-dynamic-input" 
+                  data-item-id="${item.id}" 
+                  placeholder="0,00" 
+                  step="10" 
+                  min="0"
+                  value="${hasUserPrice ? userPrice : ''}"
+                />
+              </div>
             </div>
-            <span class="barter-side-sub">necessárias na Cooxupé</span>
+            <div class="barter-side-sc cooxupe-sc-val ${hasUserPrice ? 'text-green' : 'text-muted'}" title="Sacas calculadas na Cooxupé">
+              ${scCooxupe !== null ? formatBags(scCooxupe) : '-- sc'}
+            </div>
+            <span class="barter-side-sub cooxupe-sub-val">${hasUserPrice ? 'necessárias na Cooxupé' : 'digite o preço da Cooxupé'}</span>
           </div>
         </div>
 
         <!-- DIRETRIZ COMPARATIVA PARA O VENDEDOR/CTC -->
-        <div class="barter-argument-badge ${isCooxupeCheaper ? 'advantage' : 'alert'}">
-          <i class="fi fi-rr-${isCooxupeCheaper ? 'check-circle' : 'info'}"></i>
-          <div>
-            <strong>${isCooxupeCheaper ? 'Vantagem Cooxupé para o Vendedor/CTC:' : 'Atenção Comercial:'}</strong>
-            ${isCooxupeCheaper 
-              ? `O cooperado economiza <strong>${formatBags(diffSc)}</strong> (${formatCurrency(diffReais)}) comprando na Cooxupé.` 
-              : `Diferencial de ${formatBags(Math.abs(diffSc))}. Vendedor/CTC deve apresentar sobras cooperativas e frete CIF.`}
-          </div>
+        <div class="barter-badge-container">
+          ${buildBarterBadgeHtml(item, userPrice, coffeePrice)}
         </div>
 
         <div class="barter-source-footnote">
@@ -526,6 +666,44 @@ function renderBarterHighlights(): void {
       </div>
     `;
   }).join('');
+
+  // Event listeners para os inputs de preço digitados pelo Vendedor/CTC
+  container.querySelectorAll<HTMLInputElement>('.cooxupe-dynamic-input').forEach(input => {
+    input.addEventListener('input', () => {
+      const itemId = input.dataset.itemId;
+      if (!itemId) return;
+
+      const rawVal = parseFloat(input.value);
+      if (!isNaN(rawVal) && rawVal > 0) {
+        state.userCooxupePrices[itemId] = rawVal;
+      } else {
+        delete state.userCooxupePrices[itemId];
+      }
+
+      try {
+        localStorage.setItem('cooxupe_user_prices', JSON.stringify(state.userCooxupePrices));
+      } catch (e) {}
+
+      updateSingleBarterCard(itemId);
+    });
+  });
+
+  // Event listeners para botões de exemplo rápido
+  container.querySelectorAll<HTMLButtonElement>('.btn-quick-sample').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const itemId = btn.dataset.itemId;
+      const sampleVal = parseFloat(btn.dataset.sample || '0');
+      if (itemId && sampleVal > 0) {
+        state.userCooxupePrices[itemId] = sampleVal;
+        try {
+          localStorage.setItem('cooxupe_user_prices', JSON.stringify(state.userCooxupePrices));
+        } catch (e) {}
+        const inputEl = container.querySelector<HTMLInputElement>(`#input-price-${itemId}`);
+        if (inputEl) inputEl.value = sampleVal.toString();
+        updateSingleBarterCard(itemId);
+      }
+    });
+  });
 }
 
 function renderPricesTable(): void {

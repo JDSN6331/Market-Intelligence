@@ -2184,6 +2184,80 @@ body.dark-mode .barter-side.cooxupe .barter-side-sc {
   margin-top: 2px;
 }
 
+/* INPUT DINÂMICO PARA O VENDEDOR/CTC DIGITAR O PREÇO COOXUPÉ */
+.cooxupe-input-box {
+  margin: 4px 0 6px 0;
+}
+
+.cooxupe-input-box label {
+  font-size: 0.69rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 3px;
+}
+
+.input-inline-flex {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.currency-prefix-sm {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--agri-primary);
+}
+
+body.dark-mode .currency-prefix-sm {
+  color: var(--agri-light);
+}
+
+.cooxupe-dynamic-input {
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text-primary);
+  width: 100%;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+body.dark-mode .cooxupe-dynamic-input {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.cooxupe-dynamic-input:focus {
+  outline: none;
+  border-color: var(--agri-accent);
+  box-shadow: 0 0 0 2px rgba(67, 160, 71, 0.25);
+}
+
+.btn-quick-sample {
+  background: none;
+  border: none;
+  color: var(--agri-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0;
+  font-size: 0.78rem;
+  display: inline;
+}
+
+body.dark-mode .btn-quick-sample {
+  color: var(--agri-accent);
+}
+
+.btn-quick-sample:hover {
+  opacity: 0.8;
+}
+
 /* BADGE COM DIRETRIZ DE ARGUMENTAÇÃO PARA O VENDEDOR/CTC */
 .barter-argument-badge {
   display: flex;
@@ -2223,6 +2297,30 @@ body.dark-mode .barter-argument-badge.alert {
   background: rgba(245, 158, 11, 0.15);
   color: #fbbf24;
   border-color: rgba(251, 191, 36, 0.35);
+}
+
+.barter-argument-badge.waiting {
+  background: rgba(100, 116, 139, 0.1);
+  color: var(--text-secondary);
+  border: 1px dashed rgba(100, 116, 139, 0.3);
+}
+
+body.dark-mode .barter-argument-badge.waiting {
+  background: rgba(148, 163, 184, 0.08);
+  color: #94a3b8;
+  border-color: rgba(148, 163, 184, 0.25);
+}
+
+.barter-argument-badge.neutral {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563eb;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+body.dark-mode .barter-argument-badge.neutral {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border-color: rgba(96, 165, 250, 0.35);
 }
 
 .barter-source-footnote {
