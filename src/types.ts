@@ -68,6 +68,14 @@ export interface Competitor {
   badgeColor: string;
   summary: string;
   sourceInfo: DataSourceInfo;
+  // Campos do Dossiê Estratégico
+  foundationYear?: number;
+  historyOverview?: string;
+  modusOperandi?: string;
+  targetAudience?: string;
+  keyThreat?: string;
+  tacticalDefense?: string;
+  businessModelPillars?: string[];
 }
 
 export interface ProductItem {

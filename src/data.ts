@@ -15,19 +15,19 @@ export const COFFEE_PRICE_DEFAULT = 1820.00; // R$ por saca de 60kg (Café Aráb
 // ==========================================================================
 export const STRATEGIC_KPIS: StrategicKpi[] = [
   {
-    id: 'kpi-icp',
-    title: 'Índice de Competitividade de Preço (ICP)',
-    value: '102.4%',
-    unit: 'vs Média de Mercado',
-    trend: '+2.4%',
-    trendType: 'positive',
-    barPercent: 72,
+    id: 'kpi-preco-concorrencia',
+    title: 'Preço Médio da Concorrência (NPK 20-00-20)',
+    value: 'R$ 2.780',
+    unit: 'por Tonelada (À Vista)',
+    trend: 'Spread Regional R$ 2.720 - 2.850',
+    trendType: 'neutral',
+    barPercent: 68,
     barColor: 'var(--agri-medium)',
-    whatItRepresents: 'Indica a posição de preço global da Cooxupé ponderada pelo volume de compras de uma fazenda cafeeira típica. Valores acima de 100% significam que o produtor economiza no custo total ao adquirir na Cooxupé em comparação com a média ponderada dos concorrentes (Cocatrel, Coopercitrus e Revendas).',
-    howItWasExtracted: 'Calculado a partir de uma cesta padrão de 42 insumos de alto giro (NPK 20-00-20, Nitrato de Amônio, Fungicidas Triazol/Estrobilurina, Inseticidas fisiológicos e peças de máquinas). Os preços de balcão e safra dos concorrentes são apurados semanalmente e ponderados pelos coeficientes técnicos da cafeicultura (CEPEA/Esalq).',
+    whatItRepresents: 'Indica o valor médio ponderado praticado pelos concorrentes monitorados (Cocatrel, Coopercitrus, Revendas Lavoro) para a tonelada do adubo formulado NPK 20-00-20 nas praças do Sul de Minas, Mogiana Paulista e Cerrado.',
+    howItWasExtracted: 'Média aritmética e ponderada das cotações de balcão e propostas comerciais coletadas presencialmente por Vendedores/CTCs e analistas de mercado nas lojas e filiais concorrentes.',
     sourceInfo: {
-      sourceName: 'Cesta Padrão de Insumos - Cotações Coletadas nas Lojas e Balcões Concorrentes',
-      collectionMethod: 'Pesquisa de mercado presencial e verificação de propostas de concorrentes',
+      sourceName: 'Tabelas de Balcão e Propostas Comerciais de Lojas Concorrentes',
+      collectionMethod: 'Pesquisa presencial em lojas e balcões da concorrência e encartes de compras',
       competitorChannel: 'Lojas Agro Cocatrel, Minasul, Coopercitrus e Revendas Lavoro',
       collectionDate: '15/09/2026',
       auditLevel: 'Verificada em Balcão Concorrente'
@@ -36,18 +36,18 @@ export const STRATEGIC_KPIS: StrategicKpi[] = [
   },
   {
     id: 'kpi-barter',
-    title: 'Relação de Troca Média (Barter sc/t NPK 20-00-20)',
-    value: '1.62',
+    title: 'Relação de Troca da Concorrência (Barter NPK)',
+    value: '1.53',
     unit: 'sc de 60kg / ton',
-    trend: '-0.07 sc/t vs Rivais',
+    trend: 'Exigência dos Concorrentes em Café',
     trendType: 'positive',
-    barPercent: 58,
+    barPercent: 54,
     barColor: 'var(--coffee-amber)',
-    whatItRepresents: 'Mede o esforço físico do cafeicultor: quantas sacas de café arábica tipo 6 beneficiado (60kg) o produtor precisa entregar para pagar 1 tonelada de adubo formulado NPK 20-00-20 na safra futura. Quanto menor o número de sacas, mais barato custa o insumo em moeda física.',
-    howItWasExtracted: 'Divisão direta entre o preço faturado a prazo de safra do adubo (R$ 2.950/t na Cooxupé já com benefício de armazenagem) pela cotação futura de referência do café arábica na Mesa Cooxupé (R$ 1.820/sc). Comparado com as tabelas de barter da Cocatrel (1.69 sc/t) e Coopercitrus (1.72 sc/t).',
+    whatItRepresents: 'Mede quantas sacas de café arábica tipo 6 (60 kg) o mercado concorrente está exigindo para entregar 1 tonelada de adubo formulado NPK 20-00-20. Serve de balizador para o Vendedor/CTC saber a paridade que o cooperado recebeu dos rivais.',
+    howItWasExtracted: 'Divisão direta entre o preço à vista médio dos concorrentes (R$ 2.780/t) pela cotação do café arábica informada no painel (R$ 1.820/sc). Em operações a prazo safra, as cooperativas rivais chegam a exigir 1,69 sc/t (Cocatrel) e 1,72 sc/t (Coopercitrus).',
     sourceInfo: {
-      sourceName: 'Tabelas Oficiais de Barter dos Concorrentes vs Mesa Cooxupé',
-      collectionMethod: 'Cruzamento entre contratos de barter de cooperativas rivais e preços de balcão',
+      sourceName: 'Tabelas Oficiais de Barter e Balcão dos Concorrentes',
+      collectionMethod: 'Cruzamento entre tabelas de barter dos concorrentes e cotação do café',
       competitorChannel: 'Departamentos de Barter Cocatrel, Minasul e Coopercitrus',
       collectionDate: '16/09/2026',
       auditLevel: 'Oficial Concorrente'
@@ -58,13 +58,13 @@ export const STRATEGIC_KPIS: StrategicKpi[] = [
     id: 'kpi-cpr',
     title: 'Ameaça de Prazos Safra (CPRs de Revendas Privadas)',
     value: 'Moderada-Alta',
-    unit: 'Índice de Exposição',
-    trend: '+12% em volume',
+    unit: 'Índice de Exposição Regional',
+    trend: '+12% em volume registrado',
     trendType: 'negative',
     barPercent: 80,
     barColor: 'var(--gold-harvest)',
-    whatItRepresents: 'Mede o risco de desvio de sacas de cooperados para cumprimento de garantias com revendas privadas (Lavoro Agro, AgroGalaxy, Sinagro). Reflete a agressividade dos fundos de crédito privado ao oferecer aprovação rápida sem garantia hipotecária.',
-    howItWasExtracted: 'Monitoramento do volume de CPRs (Cédulas de Produto Rural) Físicas e Financeiras registradas em cartórios de títulos e na B3 sob o código cafeicultura nas comarcas do Sul de Minas, Mogiana e Cerrado.',
+    whatItRepresents: 'Mede o avanço de CPRs (Cédulas de Produto Rural) emitidas por redes privadas de revendas (Lavoro Agro, AgroGalaxy, Sinagro), que amarram o café dos produtores em garantias antes da colheita em troca de prazos estendidos.',
+    howItWasExtracted: 'Monitoramento mensal dos registros públicos de CPRs físicas e financeiras de café na B3 e cartórios de títulos nas comarcas do Sul de Minas, Mogiana e Cerrado.',
     sourceInfo: {
       sourceName: 'Registros Públicos de CPR e Garantias de Safra na B3 e Cartórios de MG/SP',
       collectionMethod: 'Mineração de registros públicos de penhor e alienação de safra cafeeira',
@@ -75,29 +75,29 @@ export const STRATEGIC_KPIS: StrategicKpi[] = [
     updateFrequency: 'Mensal'
   },
   {
-    id: 'kpi-femagri',
-    title: 'Retenção de Barter na Femagri',
-    value: '89.6%',
-    unit: 'Taxa de Cumprimento',
-    trend: '+2.1% a.a.',
-    trendType: 'positive',
-    barPercent: 90,
+    id: 'kpi-spread',
+    title: 'Dispersão de Preços no Mercado (Spread Rivais)',
+    value: '7.2%',
+    unit: 'Variação Mín / Máx Concorrentes',
+    trend: 'Maior agressividade em Defensivos',
+    trendType: 'neutral',
+    barPercent: 72,
     barColor: 'var(--agri-primary)',
-    whatItRepresents: 'Percentual de cooperados que adquiriram tratores, máquinas ou implementos via barter na Femagri e honraram rigorosamente o depósito físico do café nos armazéns da Cooxupé no encerramento da colheita.',
-    howItWasExtracted: 'Conciliação entre o volume total de sacas contratadas na Femagri e as baixas de estoque registradas no sistema de armazenagem e recebimento de café.',
+    whatItRepresents: 'Mede a amplitude média de preços entre o concorrente mais agressivo (com queima de margem em produtos âncora) e o concorrente mais caro para a mesma linha de produtos nas praças monitoradas.',
+    howItWasExtracted: 'Cálculo da diferença percentual entre a menor e maior cotação identificada para princípios ativos e insumos idênticos (ex.: Azoxistrobina + Ciproconazol ou NPK) no mercado regional.',
     sourceInfo: {
-      sourceName: 'Relatório Oficial de Liquidação Física de Barter da Femagri (ERP SAPIENS)',
-      collectionMethod: 'Auditoria de entrega de sacas em armazém versus contratos de compra parcelada',
-      competitorChannel: 'Operações Comerciais Femagri Cooxupé',
-      collectionDate: '31/08/2026',
-      auditLevel: 'Oficial Cooxupé'
+      sourceName: 'Catálogo Comparativo de Preços Coletados a Campo',
+      collectionMethod: 'Análise estatística de dispersão de preços entre lojas de revendas e cooperativas',
+      competitorChannel: 'Praças de Guaxupé, Varginha, Três Pontas, Franca e Patrocínio',
+      collectionDate: '15/09/2026',
+      auditLevel: 'Verificada em Balcão Concorrente'
     },
-    updateFrequency: 'Pós-Safra / Anual'
+    updateFrequency: 'Semanal'
   }
 ];
 
 // ==========================================================================
-// CONCORRENTES MONITORADOS
+// CONCORRENTES MONITORADOS & DOSSIÊ ESTRATÉGICO
 // ==========================================================================
 export const COMPETITORS: Competitor[] = [
   {
@@ -128,7 +128,14 @@ export const COMPETITORS: Competitor[] = [
       competitorChannel: 'Canais Oficiais Cooxupé',
       collectionDate: '15/08/2026',
       auditLevel: 'Oficial Cooxupé'
-    }
+    },
+    foundationYear: 1932,
+    historyOverview: 'Fundada em 1932 em Guaxupé/MG como cooperativa de crédito agrícola e transformada em cooperativa de cafeicultores em 1957, construiu mais de 9 décadas de solidez, tornando-se a maior cooperativa de café do mundo com mais de 36 mil cooperados.',
+    modusOperandi: 'Cooperativismo tradicional de alto padrão. Foco em segurança jurídica, liquidez pontual na recepção do café físico, assistência técnica capilarizada através do corpo de Vendedores/CTCs e distribuição anual de sobras estatutárias comprovadas.',
+    targetAudience: 'Todos os estratos da cafeicultura: da agricultura familiar (pequenos cafeicultores até 20 ha no Sul de MG) aos médios produtores de montanha e grandes fazendas empresariais do Cerrado e Mogiana.',
+    keyThreat: 'N/A (Referência Institucional)',
+    tacticalDefense: 'Manter a fidelização reforçando as sobras de balanço, armazenagem sem custos nos primeiros 180 dias e a segurança que nenhuma rede privada pode oferecer.',
+    businessModelPillars: ['Segurança e Solidez', 'Retorno de Sobras', 'Assistência Técnica de Campo', 'Femagri & Barter Físico']
   },
   {
     id: 'cocatrel',
@@ -157,7 +164,14 @@ export const COMPETITORS: Competitor[] = [
       competitorChannel: 'Lojas Físicas Agro Cocatrel (Três Pontas, Nepomuceno, Santana da Vargem)',
       collectionDate: '14/09/2026',
       auditLevel: 'Verificada em Balcão Concorrente'
-    }
+    },
+    foundationYear: 1961,
+    historyOverview: 'Fundada em 1961 por cafeicultores de Três Pontas/MG, cresceu como a cooperativa símbolo do coração do Sul de Minas. Expandiu com misturadora própria de fertilizantes e armazéns em municípios vizinhos, além de ser a anfitriã da feira Expocafé.',
+    modusOperandi: 'Atuação comercial com forte apelo bairrista e comunitário. Utiliza o preço de balcão do fertilizante (misturas próprias 20-00-20) como ferramenta âncora para atrair o cooperado e travar o depósito da safra futura em seus armazéns.',
+    targetAudience: 'Cafeicultores do Sul de Minas (pequenos e médios de 10 a 80 ha), com fidelidade histórica nos municípios de Três Pontas, Varginha, Campos Gerais, Nepomuceno e Boa Esperança.',
+    keyThreat: 'Campanhas de adubação antecipada com descontos de 2% a 3% em troca de travamento de 30% da safra em barter, além da venda agressiva de tratores LS e colhedoras na Expocafé.',
+    tacticalDefense: 'Orientar o Vendedor/CTC a apresentar a simulação de sobras cooperativas da Cooxupé (que historicamente devolvem 3% a 5%) e a isenção de taxa de armazenagem nos primeiros 6 meses, superando o desconto aparente de balcão da Cocatrel.',
+    businessModelPillars: ['Forte Identidade Regional', 'Misturadora Própria de Fertilizantes', 'Expocafé', 'Venda Casada Adubo-Safra']
   },
   {
     id: 'minasul',
@@ -184,7 +198,14 @@ export const COMPETITORS: Competitor[] = [
       competitorChannel: 'Lojas Agro Minasul (Varginha, Lavras, Capelinha)',
       collectionDate: '12/09/2026',
       auditLevel: 'Verificada em Balcão Concorrente'
-    }
+    },
+    foundationYear: 1958,
+    historyOverview: 'Fundada em 1958 em Varginha/MG, consolidou-se como um polo inovador do cooperativismo cafeeiro, pioneira na criação do primeiro ecossistema digital de barter com moeda própria lastreada em café (Coffee Coin).',
+    modusOperandi: 'Comunicação comercial jovem, ágil e digital. Foco em compras antecipadas (Early Order no primeiro semestre), cotações instantâneas via app e facilidade de travamento de café futuro fracionado.',
+    targetAudience: 'Cafeicultores tecnificados de médio e grande porte, cafeicultores de cafés especiais e novas gerações de sucessores rurais que priorizam a facilidade digital à presença física de balcão.',
+    keyThreat: 'Captura antecipada de pedidos de fertilizantes e defensivos entre abril e junho via campanhas digitais agressivas, antes da Cooxupé abrir o balcão da safra.',
+    tacticalDefense: 'Agilizar o atendimento dos Vendedores/CTCs com limites de crédito pré-aprovados nos núcleos e destacar a incomparável capacidade logística de entrega e estocagem dos armazéns da Cooxupé.',
+    businessModelPillars: ['Barter Digital (Coffee Coin)', 'Inovação e Aplicativos Mobile', 'Campanhas Early Order', 'Foco em Sucessão Familiar']
   },
   {
     id: 'coopercitrus',
@@ -211,7 +232,14 @@ export const COMPETITORS: Competitor[] = [
       competitorChannel: 'Concessionárias Coopercitrus (Franca, Ribeirão Preto, São Sebastião do Paraíso)',
       collectionDate: '10/09/2026',
       auditLevel: 'Proposta Comercial Concorrente'
-    }
+    },
+    foundationYear: 1976,
+    historyOverview: 'Nascida em 1976 em Bebedouro/SP da fusão de cooperativas paulistas de citricultores, transformou-se em uma das maiores cooperativas agropecuárias da América Latina. Expandiu para MG através de concessionárias de máquinas e lojas de insumos em polos como São Sebastião do Paraíso, Passos, Uberaba e Patrocínio.',
+    modusOperandi: 'Venda técnica e consultiva de alto tíquete médio. Opera com forte equipe de engenharia própria para projetos de irrigação (pivôs e gotejamento) e representação oficial de grandes montadoras (Valtra e Jacto), oferecendo parcelamento em até 3 ou 4 safras.',
+    targetAudience: 'Médios e grandes cafeicultores empresariais da Mogiana Paulista e Cerrado Mineiro (áreas acima de 80 ha), cafeicultores irrigantes e produtores com lavouras mistas (café com grãos ou cana).',
+    keyThreat: 'Liderança técnica folgada em pivôs centrais no Cerrado e venda casada de frotas de tratores Valtra com assistência de concessionária oficial.',
+    tacticalDefense: 'Agilizar o convênio com integradores oficiais Netafim e potencializar o Barter em Café na Femagri, comprovando que a saca de café protege o produtor de variações do dólar e taxas bancárias de concessionária.',
+    businessModelPillars: ['Concessionária Valtra/Jacto', 'Engenharia Hidráulica Turn-Key', 'Diversificação de Culturas', 'Coopercitrus Expo']
   },
   {
     id: 'expocacer',
@@ -238,7 +266,14 @@ export const COMPETITORS: Competitor[] = [
       competitorChannel: 'Loja de Insumos Expocacer - Patrocínio / MG',
       collectionDate: '08/09/2026',
       auditLevel: 'Verificada em Balcão Concorrente'
-    }
+    },
+    foundationYear: 1993,
+    historyOverview: 'Fundada em 1993 em Patrocínio/MG, a Expocacer é a cooperativa líder do Cerrado Mineiro, responsável histórica pela consolidação da primeira Denominação de Origem Protegida (DOP) de café do Brasil e referência mundial em práticas sustentáveis e regenerativas.',
+    modusOperandi: 'Estratégia premium voltada à diferenciação de qualidade. Não disputa guerras de preços em fertilizantes commodities; foca na venda consultiva de bioinsumos, bionematicidas, nutrição foliar nobre e certificações socioambientais internacionais.',
+    targetAudience: 'Cafeicultores do Cerrado Mineiro de relevo plano e altamente mecanizado/irrigado, com foco obsessivo em produtividade por gotejamento, cafés de 85+ pontos e certificação Regenagri.',
+    keyThreat: 'Atração de cafeicultores dos núcleos Cooxupé de Patrocínio, Monte Carmelo e Coromandel com a narrativa de valorização de cafés especiais e assistência em manejo regenerativo.',
+    tacticalDefense: 'Lançar e promover a linha própria de bioinsumos da Cooxupé e reforçar a capacidade de exportação global direta da Cooxupé, que conecta o cooperado aos maiores compradores mundiais em mais de 50 países.',
+    businessModelPillars: ['DOP Cerrado Mineiro', 'Cafés Especiais e Regenerativos', 'Bioinsumos e Bionematicidas', 'Foco em Alta Produtividade']
   },
   {
     id: 'lavoro_agro',
@@ -265,7 +300,14 @@ export const COMPETITORS: Competitor[] = [
       competitorChannel: 'Filiais Lavoro Agro / Pitangueiras / Agrovenci no Sul de MG e Mogiana',
       collectionDate: '15/09/2026',
       auditLevel: 'Proposta Comercial Concorrente'
-    }
+    },
+    foundationYear: 2017,
+    historyOverview: 'Formada em 2017 pelo fundo de private equity Pátria Investimentos, a Lavoro consolidou dezenas de revendas tradicionais no interior paulista e mineiro (como Pitangueiras e Agrovenci), tornando-se a maior distribuidora de insumos agrícolas da América Latina, listada na Nasdaq.',
+    modusOperandi: 'Agressividade financeira e esteira de crédito ágil. Atua com vendedores de campo com metas agressivas de volume, flexibilização de garantias em CPRs registradas em até 48 horas e queima de margem em fungicidas âncora (como Priori Xtra) como "produto isca" para capturar a safra de café.',
+    targetAudience: 'Médios e grandes cafeicultores que necessitam de crédito complementar rápido no meio da safra ou produtores que enfrentam restrições temporárias de limites nos bancos cooperativos.',
+    keyThreat: 'Erosão da margem em defensivos foliares nos núcleos da Cooxupé e travamento antecipado de café físico através de CPRs vinculadas a tradings multinacionais parceiras.',
+    tacticalDefense: 'Alertar o cooperado sobre o risco de contratos com fundos de investimento e execução judicial sumária de garantias em casos de intempéries, contrastando com a solidez e o apoio mútuo do modelo cooperativista da Cooxupé.',
+    businessModelPillars: ['Financiamento via CPR Rápida', 'Queima de Margem em Produtos Isca', 'Parcerias Syngenta/Corteva', 'Força de Vendas de Campo']
   },
   {
     id: 'concessionarias_maquinas',
@@ -292,7 +334,14 @@ export const COMPETITORS: Competitor[] = [
       competitorChannel: 'Rede de Concessionárias Autorizadas das Montadoras',
       collectionDate: '11/09/2026',
       auditLevel: 'Proposta Comercial Concorrente'
-    }
+    },
+    foundationYear: 1985,
+    historyOverview: 'Redes de concessionárias autorizadas das maiores montadoras mundiais de maquinário agrícola (Treviso John Deere, Curinga Case IH, Minas Máquinas), com centros de distribuição de peças e oficinas estruturadas nas cidades-polo de MG e SP.',
+    modusOperandi: 'Venda de pacotes de tecnologia, telemetria e conectividade. Oferecem tratores cafeeiros estreitos com piloto automático de fábrica e financiamentos subsidiados via bancos de montadora (Banco DLL, Banco John Deere, CNH Capital) com juros pré-fixados.',
+    targetAudience: 'Grandes frotistas e cafeicultores empresariais de topografia plana e mecanizável que buscam automação, telemetria de consumo de diesel e padronização de frota com tratores cabinados.',
+    keyThreat: 'Oferta de tratores cabinados com taxas de juros de 7,5% a 8,5% a.a. sem necessidade de relacionamento cooperativo ou entrega física de café.',
+    tacticalDefense: 'Potencializar as cotas de barter da Femagri com Agritech e Jacto, provando matematicamente que pagar o trator em sacas de café fixas protege o cafeicultor de qualquer disparada da taxa Selic, CDI ou desvalorização cambial.',
+    businessModelPillars: ['Bancos de Montadora', 'Telemetria & Piloto Automático', 'Oficinas Autorizadas 24/7', 'Conexão com Grandes Frotistas']
   },
   {
     id: 'players_irrigacao',
@@ -319,7 +368,14 @@ export const COMPETITORS: Competitor[] = [
       competitorChannel: 'Canais de Venda Direta Netafim Brasil e Revendas Master Rivulis',
       collectionDate: '13/09/2026',
       auditLevel: 'Oficial Concorrente'
-    }
+    },
+    foundationYear: 1965,
+    historyOverview: 'Empresas pioneiras globais em irrigação localizada por gotejamento e pivôs, com engenharia instalada em polos do interior paulista e mineiro. São responsáveis pela introdução das mangueiras gotejadoras autocompensantes e de longa vida útil na cafeicultura.',
+    modusOperandi: 'Venda técnica direta de engenharia hidráulica "chave na mão" (turn-key). Elaboram projetos executivos 3D, cálculos de bombeamento e dimensionamento de fertirrigação com assistência técnica pós-venda para calibração de lâminas d água.',
+    targetAudience: 'Cafeicultores do Cerrado Mineiro e Mogiana Paulista com foco em alta produtividade (60 a 90 sc/ha) e produtores de áreas de montanha no Sul de Minas que necessitam de irrigação de salvamento contra veranicos.',
+    keyThreat: 'Abordagem direta de equipes de venda das fábricas aos grandes associados Cooxupé com descontos de volume, contornando a intermediação da cooperativa.',
+    tacticalDefense: 'Formalizar convênios diretos Cooxupé-Netafim, oferecendo ao produtor o barter em até 4 safras fixas em café, com acompanhamento de campo pelos Vendedores/CTCs e suporte técnico credenciado.',
+    businessModelPillars: ['Engenharia Agronômica Chave na Mão', 'Fertirrigação Automatizada', 'Durabilidade 15+ Anos', 'Estresse Hídrico Controlado']
   }
 ];
 

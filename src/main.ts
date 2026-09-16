@@ -66,6 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setupNavigationTabs();
   renderStrategicKpis();
   renderCockpitOverview();
+  renderCompetitorsDossier();
+  setupDossierFilters();
   renderProductsCatalog();
   setupBarterSimulator();
   renderCommercialCampaigns();
@@ -193,9 +195,11 @@ function renderStrategicKpis(): void {
 
 function getKpiIcon(id: string): string {
   switch (id) {
-    case 'kpi-icp': return 'fi fi-rr-chart-line-up';
+    case 'kpi-preco-concorrencia': return 'fi fi-rr-plant-growth';
     case 'kpi-barter': return 'fi fi-rr-arrows-repeat';
     case 'kpi-cpr': return 'fi fi-rr-engine-warning';
+    case 'kpi-spread': return 'fi fi-rr-chart-pie-alt';
+    case 'kpi-icp': return 'fi fi-rr-chart-line-up';
     case 'kpi-femagri': return 'fi fi-rr-badge-leaf';
     default: return 'fi fi-rr-chart-pie-alt';
   }
@@ -260,6 +264,189 @@ function renderCockpitOverview(): void {
       </div>
     `).join('');
   }
+}
+
+// ==========================================================================
+// ABA: DOSSIÊ ESTRATÉGICO DOS CONCORRENTES (HISTÓRICO, MODUS OPERANDI E PERFIL)
+// ==========================================================================
+function getCompetitorTypeLabel(type: string): { label: string; icon: string; cssClass: string } {
+  switch (type) {
+    case 'cooperativa':
+      return { label: 'Cooperativa Congênere', icon: 'fi fi-rr-users-alt', cssClass: 'type-coop' };
+    case 'revenda_privada':
+      return { label: 'Rede de Revendas Privada', icon: 'fi fi-rr-shop', cssClass: 'type-revenda' };
+    case 'concessionaria':
+      return { label: 'Concessionária Autorizada', icon: 'fi fi-rr-tractor', cssClass: 'type-concessionaria' };
+    case 'irrigacao_especializada':
+      return { label: 'Integrador de Irrigação', icon: 'fi fi-rr-raindrops', cssClass: 'type-irrigacao' };
+    default:
+      return { label: 'Player do Mercado', icon: 'fi fi-rr-building', cssClass: 'type-default' };
+  }
+}
+
+let currentDossierFilter = 'all';
+
+function renderCompetitorsDossier(filter: string = currentDossierFilter): void {
+  currentDossierFilter = filter;
+  const grid = document.getElementById('competitors-dossier-grid');
+  if (!grid) return;
+
+  const filtered = COMPETITORS.filter(comp => {
+    if (filter === 'all') return true;
+    return comp.type === filter;
+  });
+
+  grid.innerHTML = filtered.map(comp => {
+    const typeInfo = getCompetitorTypeLabel(comp.type);
+    const isCooxupe = comp.id === 'cooxupe';
+    const age = comp.foundationYear ? (2026 - comp.foundationYear) : null;
+
+    return `
+      <div class="dossier-card ${isCooxupe ? 'is-cooxupe' : ''}" style="--comp-brand: ${comp.badgeColor};">
+        <!-- TOPO DO CARD: IDENTIFICAÇÃO E BADGES -->
+        <div class="dossier-card-header">
+          <div class="dossier-title-row">
+            <div class="dossier-brand-badge" style="background: ${comp.badgeColor}18; color: ${comp.badgeColor}; border: 1px solid ${comp.badgeColor}44;">
+              <i class="${typeInfo.icon}"></i>
+            </div>
+            <div class="dossier-names">
+              <div class="dossier-type-tag ${typeInfo.cssClass}">
+                <i class="${typeInfo.icon}"></i> ${typeInfo.label}
+              </div>
+              <h3 class="dossier-comp-name">${comp.name}</h3>
+            </div>
+          </div>
+          <div class="dossier-meta-badges">
+            ${comp.foundationYear ? `
+              <span class="dossier-year-badge">
+                <i class="fi fi-rr-calendar"></i> Fundada em ${comp.foundationYear} ${age ? `(${age} anos)` : ''}
+              </span>
+            ` : ''}
+            <span class="dossier-hq-badge"><i class="fi fi-rr-marker"></i> ${comp.headquarters}</span>
+          </div>
+        </div>
+
+        <!-- PILARES DO MODELO DE NEGÓCIO -->
+        ${comp.businessModelPillars && comp.businessModelPillars.length > 0 ? `
+          <div class="dossier-pillars-container">
+            <span class="dossier-pillars-title"><i class="fi fi-rr-layers"></i> Pilares Comerciais:</span>
+            <div class="dossier-pillars-pills">
+              ${comp.businessModelPillars.map(pillar => `<span class="pillar-pill">${pillar}</span>`).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- HISTÓRICO & TRAJETÓRIA CORPORATIVA -->
+        <div class="dossier-content-block history">
+          <div class="dossier-block-header">
+            <i class="fi fi-rr-time-past"></i>
+            <h4>Histórico & Trajetória</h4>
+          </div>
+          <p class="dossier-block-text">${comp.historyOverview || comp.summary}</p>
+        </div>
+
+        <!-- MODUS OPERANDI COMERCIAL (COMO ATUA / POLÍTICA DE PREÇOS) -->
+        <div class="dossier-content-block modus-operandi">
+          <div class="dossier-block-header">
+            <i class="fi fi-rr-settings-sliders"></i>
+            <h4>Modus Operandi Comercial (Como Costuma Trabalhar)</h4>
+          </div>
+          <p class="dossier-block-text">${comp.modusOperandi || 'Atuação comercial em monitoramento contínuo.'}</p>
+        </div>
+
+        <!-- PÚBLICO & MERCADO-ALVO -->
+        <div class="dossier-content-block target-audience">
+          <div class="dossier-block-header">
+            <i class="fi fi-rr-crosshair"></i>
+            <h4>Público & Mercados-Alvo</h4>
+          </div>
+          <p class="dossier-block-text">${comp.targetAudience || 'Produtores de café da área de abrangência.'}</p>
+        </div>
+
+        <!-- PONTOS FORTES E PONTOS FRACOS (SWOT RÁPIDA) -->
+        <div class="dossier-swot-grid">
+          <div class="dossier-swot-col strengths">
+            <div class="dossier-swot-title"><i class="fi fi-rr-check-circle"></i> Pontos Fortes</div>
+            <ul>
+              ${comp.strengths.map(s => `<li><i class="fi fi-rr-angle-small-right"></i> ${s}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="dossier-swot-col weaknesses">
+            <div class="dossier-swot-title"><i class="fi fi-rr-cross-circle"></i> Pontos Fracos & Vulnerabilidades</div>
+            <ul>
+              ${comp.weaknesses.map(w => `<li><i class="fi fi-rr-angle-small-right"></i> ${w}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+
+        <!-- PRINCIPAL AMEAÇA COMERCIAL -->
+        ${comp.keyThreat && comp.keyThreat !== 'N/A (Referência Institucional)' ? `
+          <div class="dossier-threat-box">
+            <div class="threat-box-header">
+              <i class="fi fi-rr-triangle-warning"></i>
+              <strong>Atenção Estratégica: Principal Ameaça Comercial</strong>
+            </div>
+            <p>${comp.keyThreat}</p>
+          </div>
+        ` : ''}
+
+        <!-- DIRETRIZ TÁTICA DE DEFESA PARA VENDEDOR / CTC DA COOXUPÉ -->
+        <div class="dossier-defense-box">
+          <div class="defense-box-header">
+            <i class="fi fi-rr-shield-check"></i>
+            <strong>Diretriz Tática de Defesa para Vendedor/CTC Cooxupé</strong>
+          </div>
+          <p>${comp.tacticalDefense}</p>
+        </div>
+
+        <!-- ESTIMATIVA DE MARKET SHARE REGIONAL -->
+        <div class="dossier-ms-section">
+          <span class="dossier-ms-title"><i class="fi fi-rr-chart-pie-alt"></i> Estimativa de Market Share Regional:</span>
+          <div class="dossier-ms-bars">
+            <div class="dms-item">
+              <span class="dms-label">Insumos:</span>
+              <span class="dms-val">${comp.marketShareEstimate.insumos}%</span>
+            </div>
+            <div class="dms-item">
+              <span class="dms-label">Irrigação:</span>
+              <span class="dms-val">${comp.marketShareEstimate.irrigacao}%</span>
+            </div>
+            <div class="dms-item">
+              <span class="dms-label">Maquinário:</span>
+              <span class="dms-val">${comp.marketShareEstimate.maquinario}%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RODAPÉ DO CARD: REGIÕES, MARCAS PARCEIRAS E AUDITORIA -->
+        <div class="dossier-footer">
+          <div class="dossier-footer-info">
+            <div class="dossier-sub-info">
+              <strong><i class="fi fi-rr-map"></i> Regiões:</strong> ${comp.mainRegions.join(', ')}
+            </div>
+            <div class="dossier-sub-info">
+              <strong><i class="fi fi-rr-tags"></i> Principais Marcas:</strong> ${comp.primaryBrands.join(', ')}
+            </div>
+          </div>
+          <div class="dossier-source-tag" title="${comp.sourceInfo.sourceName}">
+            <i class="fi fi-rr-document"></i> Fonte: ${comp.sourceInfo.auditLevel} &bull; ${comp.sourceInfo.collectionDate}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function setupDossierFilters(): void {
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.dossier-filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter || 'all';
+      renderCompetitorsDossier(filter);
+    });
+  });
 }
 
 // ==========================================================================
@@ -715,17 +902,19 @@ function renderPricesTable(): void {
   tbody.innerHTML = PRODUCTS_CATALOG.map(prod => {
     const barterBags = prod.priceTable.cashPrice / coffeePrice;
     const diff = prod.comparisonVsCooxupe.cooxupePriceDiffPercent;
+    
+    // Indicadores neutros de dispersão de mercado, sem fabricar preços internos da Cooxupé
     const diffBadge = diff < 0 
-      ? `<span class="badge-trend negative" title="Concorrente mais barato">${diff.toFixed(1)}%</span>`
+      ? `<span class="badge-trend negative" title="Cotação mais agressiva no balcão concorrente">${diff.toFixed(1)}%</span>`
       : diff > 0 
-      ? `<span class="badge-trend positive" title="Concorrente mais caro">+${diff.toFixed(1)}%</span>`
+      ? `<span class="badge-trend positive" title="Cotação acima da média de mercado">+${diff.toFixed(1)}%</span>`
       : `<span class="badge-trend neutral">0.0%</span>`;
 
     const tagLabel = diff < 0 
-      ? 'Concorrente mais barato' 
+      ? 'Pressão Agressiva de Preço' 
       : diff > 0 
-      ? 'Concorrente mais caro' 
-      : 'Preço alinhado';
+      ? 'Margem Comercial Elevada' 
+      : 'Cotação Alinhada ao Mercado';
 
     const tagClass = diff < 0 ? 'cheaper' : diff > 0 ? 'expensive' : 'neutral';
 
@@ -743,7 +932,7 @@ function renderPricesTable(): void {
           <div>${prod.dataSource.sourceName}</div>
           <span class="kpi-audit-badge">${prod.dataSource.auditLevel} &bull; ${prod.dataSource.collectionDate}</span>
         </td>
-        <!-- COLUNA COMPLETA SEM RETICÊNCIAS COM POSICIONAMENTO E ANÁLISE -->
+        <!-- COLUNA COMPLETA COM POSICIONAMENTO E ANÁLISE DE MERCADO -->
         <td class="table-verdict-cell">
           <div class="verdict-diff-row">
             ${diffBadge}

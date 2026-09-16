@@ -3190,3 +3190,577 @@ body.dark-mode .api-feedback-box.loading {
     transform: rotate(360deg);
   }
 }
+
+/* ==========================================================================
+   ABA: DOSSIÊ ESTRATÉGICO DOS CONCORRENTES
+   ========================================================================== */
+
+/* Barra de Filtros por Cluster / Segmento */
+.dossier-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full, 9999px);
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+body.dark-mode .dossier-filter-bar {
+  background: rgba(30, 41, 59, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dossier-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: var(--radius-full, 9999px);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.dossier-filter-btn i {
+  font-size: 0.95rem;
+}
+
+.dossier-filter-btn:hover {
+  color: var(--text-primary);
+  background: rgba(46, 125, 50, 0.08);
+}
+
+body.dark-mode .dossier-filter-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dossier-filter-btn.active {
+  background: var(--agri-primary);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+}
+
+body.dark-mode .dossier-filter-btn.active {
+  background: var(--agri-primary);
+  color: #FFFFFF;
+  box-shadow: 0 2px 10px rgba(74, 222, 128, 0.25);
+}
+
+/* Grid de Cards de Dossiê */
+.dossier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .dossier-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card Individual de Dossiê */
+.dossier-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--comp-brand, var(--agri-primary));
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.dossier-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-color: rgba(var(--comp-brand, 46, 125, 50), 0.4);
+}
+
+body.dark-mode .dossier-card {
+  background: rgba(26, 38, 57, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-left: 4px solid var(--comp-brand, var(--agri-primary));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .dossier-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Destaque especial se for Cooxupé */
+.dossier-card.is-cooxupe {
+  border-left: 4px solid #10B981;
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.04) 100%);
+}
+
+body.dark-mode .dossier-card.is-cooxupe {
+  background: linear-gradient(135deg, rgba(26, 38, 57, 0.85) 0%, rgba(16, 185, 129, 0.08) 100%);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+/* Header do Card */
+.dossier-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dossier-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.dossier-brand-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.dossier-names {
+  flex: 1;
+}
+
+.dossier-type-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+
+.dossier-type-tag.type-coop {
+  background: rgba(37, 99, 235, 0.12);
+  color: #2563EB;
+}
+body.dark-mode .dossier-type-tag.type-coop {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60A5FA;
+}
+
+.dossier-type-tag.type-revenda {
+  background: rgba(220, 38, 38, 0.12);
+  color: #DC2626;
+}
+body.dark-mode .dossier-type-tag.type-revenda {
+  background: rgba(239, 68, 68, 0.2);
+  color: #F87171;
+}
+
+.dossier-type-tag.type-concessionaria {
+  background: rgba(124, 58, 237, 0.12);
+  color: #7C3AED;
+}
+body.dark-mode .dossier-type-tag.type-concessionaria {
+  background: rgba(139, 92, 246, 0.2);
+  color: #A78BFA;
+}
+
+.dossier-type-tag.type-irrigacao {
+  background: rgba(8, 145, 178, 0.12);
+  color: #0891B2;
+}
+body.dark-mode .dossier-type-tag.type-irrigacao {
+  background: rgba(6, 182, 212, 0.2);
+  color: #38BDF8;
+}
+
+.dossier-comp-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.dossier-meta-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dossier-year-badge,
+.dossier-hq-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  background: var(--bg-surface, rgba(0, 0, 0, 0.04));
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+}
+
+body.dark-mode .dossier-year-badge,
+body.dark-mode .dossier-hq-badge {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Pilares do Modelo de Negócio */
+.dossier-pillars-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px dashed var(--border-subtle);
+  border-radius: 10px;
+}
+
+body.dark-mode .dossier-pillars-container {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dossier-pillars-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dossier-pillars-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pillar-pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+body.dark-mode .pillar-pill {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Blocos de Conteúdo: Histórico, Modus Operandi, Público-Alvo */
+.dossier-content-block {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--bg-surface, rgba(0, 0, 0, 0.02));
+  border: 1px solid var(--border-subtle);
+}
+
+body.dark-mode .dossier-content-block {
+  background: rgba(15, 23, 42, 0.4);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.dossier-block-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 6px;
+}
+
+.dossier-block-header i {
+  font-size: 0.9rem;
+  color: var(--agri-primary);
+}
+
+body.dark-mode .dossier-block-header i {
+  color: var(--agri-light);
+}
+
+.dossier-block-header h4 {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.dossier-block-text {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Grid SWOT Rápida (Pontos Fortes vs Vulnerabilidades) */
+.dossier-swot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .dossier-swot-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dossier-swot-col {
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.dossier-swot-col.strengths {
+  background: rgba(16, 185, 129, 0.06);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+body.dark-mode .dossier-swot-col.strengths {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.dossier-swot-col.weaknesses {
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+body.dark-mode .dossier-swot-col.weaknesses {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.dossier-swot-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.dossier-swot-col.strengths .dossier-swot-title {
+  color: #059669;
+}
+body.dark-mode .dossier-swot-col.strengths .dossier-swot-title {
+  color: #34D399;
+}
+
+.dossier-swot-col.weaknesses .dossier-swot-title {
+  color: #D97706;
+}
+body.dark-mode .dossier-swot-col.weaknesses .dossier-swot-title {
+  color: #FBBF24;
+}
+
+.dossier-swot-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dossier-swot-col li {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.dossier-swot-col li i {
+  font-size: 0.75rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Box de Principal Ameaça Comercial */
+.dossier-threat-box {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.28);
+}
+
+body.dark-mode .dossier-threat-box {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(248, 113, 113, 0.35);
+}
+
+.threat-box-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #DC2626;
+  font-size: 0.8rem;
+  font-weight: 800;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+body.dark-mode .threat-box-header {
+  color: #F87171;
+}
+
+.dossier-threat-box p {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Box de Diretriz Tática de Defesa para Vendedor / CTC Cooxupé */
+.dossier-defense-box {
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-left: 4px solid var(--agri-primary);
+}
+
+body.dark-mode .dossier-defense-box {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(74, 222, 128, 0.35);
+  border-left: 4px solid #34D399;
+}
+
+.defense-box-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #059669;
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+body.dark-mode .defense-box-header {
+  color: #34D399;
+}
+
+.dossier-defense-box p {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Estimativa de Market Share Regional */
+.dossier-ms-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--bg-surface, rgba(0, 0, 0, 0.02));
+  border: 1px solid var(--border-subtle);
+}
+
+body.dark-mode .dossier-ms-section {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.dossier-ms-title {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dossier-ms-bars {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dms-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+}
+
+.dms-label {
+  color: var(--text-muted);
+}
+
+.dms-val {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Rodapé do Card: Regiões, Marcas e Auditoria */
+.dossier-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+  margin-top: auto;
+}
+
+body.dark-mode .dossier-footer {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.dossier-footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dossier-sub-info {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+.dossier-sub-info strong {
+  color: var(--text-primary);
+}
+
+.dossier-source-tag {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
